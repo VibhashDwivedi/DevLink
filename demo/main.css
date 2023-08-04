@@ -1,0 +1,23 @@
+body{
+    font-family: 'open san';
+}
+
+.input-dark:focus{
+    color: #ffffff;
+    background-color:#555;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
+}
+/* .container--narrow{
+    max-width: 732px;;
+} */
+
+.avatar-tiny{
+    width: 24px;
+    height: 24px;
+    border-radius:12px;
+    margin-right: 4px;
+    position: relative;
+    top:-1px;
+}
