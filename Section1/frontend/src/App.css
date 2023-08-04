@@ -1,0 +1,45 @@
+.body{
+  font-family: 'open san';
+  background-image:  linear-gradient(90deg, rgba(0, 0, 0, 0.315),rgba(0, 0, 255, 0.452)),url(./images/login.jpg);
+  background-size: cover;
+}
+
+.header-bar{
+  background-image: linear-gradient(100deg, black,rgb(100, 4, 4));
+}
+
+.input-dark:focus
+{
+  color: #ffffff;
+  background-color:#555;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25)
+}
+
+.description{
+  text-shadow: 1px 1px black;
+  color: whitesmoke;
+}
+
+.error-label{
+  color: red;
+  display: inline;
+  font-weight: bold;
+  font-size: 15px;
+  margin-left: 10px;
+}
+.card:hover{
+  transform: scale(1.05);
+box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+button.login:hover{
+ font-weight: bold;
+ transform: scale(1.05);
+}
+
+/* Loggedin */
+.userfeed{
+  background-color: white;
+}
