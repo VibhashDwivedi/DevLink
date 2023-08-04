@@ -1,0 +1,19 @@
+textarea.tall-textarea{
+    height: 160px;
+}
+
+.form-control-title{
+    font-size:2rem;
+    font-weight: 500;
+}
+.body-content{
+    font-size:1.2rem;
+    line-height:1.75;
+    color: #292929;
+}
+
+@media (min-width: 768px){
+    textarea.tall-textarea{
+        height: 320px;
+    }
+}
