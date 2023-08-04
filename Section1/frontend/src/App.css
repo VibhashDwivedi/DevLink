@@ -40,6 +40,23 @@ button.login:hover{
 }
 
 /* Loggedin */
-.userfeed{
-  background-color: white;
+.body2{
+  font-family: 'open san';
+}
+
+.header-bar2{
+  background-image: linear-gradient(100deg, black,rgb(30, 1, 54));
+}
+
+.avatar-tiny{
+  width: 24px;
+  height: 24px;
+  border-radius:12px;
+  margin-right: 4px;
+  position: relative;
+  top:-1px;
+}
+
+.container--narrow{
+  max-width: 732px;;
 }
