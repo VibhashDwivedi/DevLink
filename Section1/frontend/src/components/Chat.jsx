@@ -1,5 +1,6 @@
 import React from 'react'
 import '../css/createpost.css'
+import { Link } from 'react-router-dom'
 const Chat = () => {
   return (
     <div>
@@ -11,7 +12,8 @@ const Chat = () => {
     <div className="chat-title-bar">
       Chat{" "}
       <span className="chat-title-bar-close">
-        <i className="fas fa-times-circle" />
+        <Link to='/feed'>  <i className="fas fa-times-circle text-light" /></Link>
+       
       </span>
     </div>
     <div id="chat" className="chat-log">

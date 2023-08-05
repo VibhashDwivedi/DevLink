@@ -1,12 +1,11 @@
 import React from 'react'
-import CreatePost from './CreatePost'
-import Chat from './Chat'
+import ProfilePost from './ProfilePost'
 import { Link } from 'react-router-dom'
 
-const CreatePostChat = () => {
+const ProfilePostChat = () => {
   return (
     <div>
-        <CreatePost/>
+        <ProfilePost/>
         <div
     id="chat-wrapper"
     className="chat-wrapper shadow border-top border-left border-right chat--visible"
@@ -14,7 +13,7 @@ const CreatePostChat = () => {
     <div className="chat-title-bar">
       Chat{" "}
       <span className="chat-title-bar-close">
-        <Link to='/createpost'>  <i className="fas fa-times-circle text-light" /></Link>
+        <Link to='/profilepost'>  <i className="fas fa-times-circle text-light" /></Link>
        
       </span>
     </div>
@@ -63,4 +62,4 @@ const CreatePostChat = () => {
   )
 }
 
-export default CreatePostChat
+export default ProfilePostChat

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Header from './Header'
+import '../css/createpost.css'
 
 const Loggedin = () => {
   return (
-    <div>
+    <div className='create-post-body vh-100'>
  <Header/>
-  {/* body starts here*/}
   <div className="container py-md-5 container--narrow">
-    <h2 className="text-center mb-4">The Latest From Those You Follow</h2>
+    <h2 className="text-center mb-4 text-light">The Latest From Those You Follow</h2>
     <div className="list-group">
       <a href="#" className="list-group-item list-group-item-action">
         <img

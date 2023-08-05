@@ -9,6 +9,8 @@ import ProfilePost from './components/ProfilePost';
 import Chat from './components/Chat';
 import ChatVisible from './components/ChatVisible';
 import CreatePostChat from './components/CreatePostChat';
+import PostChat from './components/PostChat';
+import ProfilePostChat from './components/ProfilePostChat';
 
 function App() {
   return (
@@ -22,7 +24,9 @@ function App() {
   <Route path='error' element={<Error/>}></Route>
   <Route path='createpost' element={<CreatePost/>}></Route>
   <Route path='post' element={<Post/>}></Route>
+  <Route path='postchat' element={<PostChat/>}></Route>
   <Route path='profilepost' element={<ProfilePost/>}></Route>
+  <Route path='profilepostchat' element={<ProfilePostChat/>}></Route>
   <Route path='chat' element={<Chat/>}></Route>
   <Route path='chatvisible' element={<ChatVisible/>}></Route>
   <Route path='createpostchat' element={<CreatePostChat/>}></Route>
