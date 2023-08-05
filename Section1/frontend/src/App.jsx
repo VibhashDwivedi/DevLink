@@ -4,6 +4,11 @@ import Home from './components/Home';
 import Loggedin from './components/Loggedin';
 import Error from './components/Error';
 import CreatePost from './components/CreatePost';
+import Post from './components/Post';
+import ProfilePost from './components/ProfilePost';
+import Chat from './components/Chat';
+import ChatVisible from './components/ChatVisible';
+import CreatePostChat from './components/CreatePostChat';
 
 function App() {
   return (
@@ -16,6 +21,12 @@ function App() {
   <Route path='feed' element={<Loggedin/>}></Route>
   <Route path='error' element={<Error/>}></Route>
   <Route path='createpost' element={<CreatePost/>}></Route>
+  <Route path='post' element={<Post/>}></Route>
+  <Route path='profilepost' element={<ProfilePost/>}></Route>
+  <Route path='chat' element={<Chat/>}></Route>
+  <Route path='chatvisible' element={<ChatVisible/>}></Route>
+  <Route path='createpostchat' element={<CreatePostChat/>}></Route>
+
 </Routes>
 </BrowserRouter>
 

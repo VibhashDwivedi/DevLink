@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -28,7 +28,7 @@ const Header = () => {
               data-toggle="tooltip"
               data-placement="bottom"
             >
-              <i className="fas fa-comment mx-4" />
+              <NavLink to="/chatvisible"><i className="fas fa-comment mx-4 text-white" /></NavLink>
             </span>
             <a href="#" className="mr-2">
               <img
