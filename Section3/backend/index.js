@@ -1,7 +1,15 @@
 const express = require('express');
 
+
+
 const app = express();
 const port = 8000;
+
+const userRouter = require('./routers/userRouter')
+
+app.use(express.json());
+
+app.use('/user',userRouter);
 
 app.get('/',(req, res)=>{
     res.send("hello from the server!!");
