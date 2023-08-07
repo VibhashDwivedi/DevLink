@@ -1,8 +1,12 @@
 import React from 'react'
 import { useFormik} from 'formik'
+import Swal from 'sweetalert2'
 import * as Yup from 'yup'
+import {useNavigate} from 'react-router-dom'
 
 const Home = () => {
+
+  const navigate = useNavigate();
 
     const loginSchema = Yup.object().shape({
         username: Yup.string()
@@ -17,6 +21,7 @@ const Home = () => {
           .min(5, 'Too Short!')
           .max(50, 'Too Long!')
           .required('Required'),
+          profile:Yup.string().required('Required'),
         email: Yup.string().email('Invalid email').required('Required'),
         password: Yup.string().min(8,'Too Short!').required('Required'),
       });
@@ -27,22 +32,85 @@ const Home = () => {
             username: '',
           password: ''
     },
-    onSubmit : (values)=>{
-        console.log(values);
+    onSubmit : async (values) => {
+      console.log(values);
+      
+      //submit values to backend
+      const res = await fetch("http://localhost:8000/user/authenticate",
+      {method:'POST',
+       body:JSON.stringify(values),
+       headers:{
+        'Content-Type': 'application/json'
+       } ,
+  
+      
+    });
+    
+    console.log(res.status);
+    if(res.status === 200){
+      Swal.fire({
+        icon: 'success',
+        title:'Login Successful'
+      })
+      navigate('/feed');
+    }else if(res.status === 401){
+      Swal.fire('Invalid Credentials','Please check your credentials and try again.','warning')
+    }
+    else{
+      Swal.fire({
+        icon:'error',
+        title: 'Oops',
+        text: 'Some error occured'
+    });
+    }
+    
+    
     },
-    validationSchema:loginSchema
+      validationSchema: loginSchema
 });
 
     const signupForm = useFormik({
         initialValues: {
           username: '',
+          profile:'',
           email: '',
           password: ''
         },
-        onSubmit : (values)=>{
-            console.log(values);
-        },
-        validationSchema : SignupSchema
+        onSubmit: async (values) => {
+          console.log(values);
+           //sending request to backend
+         const res = await fetch("http://localhost:8000/user/add",
+         {method:'POST',
+          body:JSON.stringify(values),
+          headers:{
+           'Content-Type': 'application/json'
+          } ,
+   
+         
+       });
+         
+        console.log(res.status);
+        if(res.status === 200){
+         Swal.fire({
+           icon:'success',
+           title: 'Signup Success',
+           text: 'Now Login To Continue'
+         });
+        
+       }else{
+         Swal.fire({
+           icon:'error',
+           title: 'Oops',
+           text: 'Some error occured'
+       });
+   
+   
+         }
+   
+        
+   
+   } ,
+   validationSchema : SignupSchema
         });
 
 
@@ -126,7 +194,7 @@ const Home = () => {
             <label htmlFor="type-register" className="text-muted mb-1">
               <small>Profile</small>
             </label>
-           
+            <p  className='error-label'>{signupForm.touched.profile? signupForm.errors.profile :''}</p>
             <select
               name="profile"
               id="profile-register"
@@ -134,7 +202,10 @@ const Home = () => {
               type="text"
               placeholder="Pick a profile"
               autoComplete="off"
+              onChange={signupForm.handleChange}
+              value={signupForm.values.profile}
             >
+              <option >Pick a Profile</option>
               <option value="Android Developer">Android Developer</option>
               <option value="Web Developer">Web Developer</option>
               <option value="Blockchain Developer">Blockchain Developer</option>
