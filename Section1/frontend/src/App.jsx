@@ -11,12 +11,18 @@ import ChatVisible from './components/ChatVisible';
 import CreatePostChat from './components/CreatePostChat';
 import PostChat from './components/PostChat';
 import ProfilePostChat from './components/ProfilePostChat';
+import MyProfile from './components/MyProfile';
+import MyProfileChat from './components/MyProfileChat';
+import { Toaster } from 'react-hot-toast';
+import { UserProvider } from './UserContext';
+
 
 function App() {
-  return (
+return (
     <div> 
-    
+    <Toaster position='top-center'/>
 <BrowserRouter>
+<UserProvider>
 <Routes>
 <Route path='/' element={<Home/>}></Route>
   <Route path='home' element={<Home/>}></Route>
@@ -27,11 +33,15 @@ function App() {
   <Route path='postchat' element={<PostChat/>}></Route>
   <Route path='profilepost' element={<ProfilePost/>}></Route>
   <Route path='profilepostchat' element={<ProfilePostChat/>}></Route>
-  <Route path='chat' element={<Chat/>}></Route>
+  {/* <Route path='chat' element={<Chat/>}></Route> */}
   <Route path='chatvisible' element={<ChatVisible/>}></Route>
   <Route path='createpostchat' element={<CreatePostChat/>}></Route>
+  <Route path='myprofile' element={<MyProfile/>}></Route>
+  <Route path='myprofilechat' element={<MyProfileChat/>}></Route>
+  <Route path='*' element={<Error/>}></Route>
 
 </Routes>
+</UserProvider>
 </BrowserRouter>
 
     </div>

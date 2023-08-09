@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ProfilePost from './ProfilePost'
 import { Link } from 'react-router-dom'
+import Home from './Home';
+import useUserContext from '../UserContext';
 
 const ProfilePostChat = () => {
+  const {LoggedIn} = useUserContext();
+ if(!LoggedIn)
+ return<Home/>
+ 
   return (
     <div>
         <ProfilePost/>

@@ -3,21 +3,15 @@ import { Link, NavLink } from 'react-router-dom'
 import Home from './Home';
 import useUserContext from '../UserContext';
 
-const Header = () => {
-
-  // const [currentUser, setcurrentUser] = useState(
-  //   JSON.parse(sessionStorage.getItem('user'))
-  // );
-  // //const {LoggedIn} = useUserContext();
-  //  if(currentUser===null)
-  //  return<Home/>
+const MyProfile = () => {
   const {LoggedIn, logout} = useUserContext();
  if(!LoggedIn)
  return<Home/>
+ 
 
   return (
-
-    <div className='body2'>
+    <div className='create-post-body vh-100'>
+        <div className='body2'>
       <header className="header-bar2 mb-3">
         <div className="container d-flex flex-column flex-md-row align-items-center p-3">
         <h3 className="my-0 mr-md-auto fw-bold ">
@@ -41,7 +35,7 @@ const Header = () => {
               data-toggle="tooltip"
               data-placement="bottom"
             >
-              <NavLink to="/chatvisible"><i className="fas fa-comment mx-4 text-white" /></NavLink>
+              <NavLink to="/myprofilechat"><i className="fas fa-comment mx-4 text-white" /></NavLink>
             </span>
             <Link to='/myprofile' className="mr-2">
               <img
@@ -55,14 +49,17 @@ const Header = () => {
             <Link className="btn btn-sm btn-success mr-2 mx-4" to="/createpost">
               Create Post
             </Link>
-            <Link to="/home">
+            <Link to='/home'>
               <button className="btn btn-sm btn-secondary" onClick={logout}>SIGN OUT</button>
             </Link>
           </div>
         </div>
       </header>
       </div>
+
+      <h1></h1>
+    </div>
   )
 }
 
-export default Header
+export default MyProfile

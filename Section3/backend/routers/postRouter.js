@@ -1,12 +1,7 @@
 const express = require('express');
 
-
 const router = express.Router();
-const Model = require('../models/userModel');
-
-
-
-
+const Model = require('../models/postModel');
 
 router.post('/add',(req,res)=>{
     console.log(req.body);
@@ -21,19 +16,5 @@ router.post('/add',(req,res)=>{
         res.status(500).json();
     });
 });
-
-router.post('/authenticate',(req,res)=>{
-  Model.findOne(req.body)
-  .then((result) => {
-      if(result !== null)
-      res.json(result);
-      else
-      res.status(401).json({message:'login failed'})
-  }).catch((err) => {
-      console.log(err);
-      res.status(500).json();
-  });
-})
-
 
 module.exports = router;

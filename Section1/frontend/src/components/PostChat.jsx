@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Post from './Post'
 import { Link } from 'react-router-dom'
+import Home from './Home';
+import useUserContext from '../UserContext';
 
 const PostChat = () => {
+
+  const {LoggedIn} = useUserContext();
+ if(!LoggedIn)
+ return<Home/>
+ 
+
   return (
     <div>
         <Post/>

@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CreatePost from './CreatePost'
 import Chat from './Chat'
 import { Link } from 'react-router-dom'
+import Home from './Home'
+import useUserContext from '../UserContext'
 
 const CreatePostChat = () => {
+
+
+  const {LoggedIn} = useUserContext();
+ if(!LoggedIn)
+ return<Home/>
+ 
   return (
     <div>
         <CreatePost/>

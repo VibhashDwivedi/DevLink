@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../css/createpost.css'
 import Header from './Header'
 import { useFormik} from 'formik'
 import * as Yup from 'yup'
+import { toast } from 'react-hot-toast';
 import { Link, NavLink } from 'react-router-dom'
+import Home from './Home'
+import useUserContext from '../UserContext'
 
 
 
 const CreatePost = () => {
+
+ 
 
   const postSchema = Yup.object().shape({
     title: Yup.string()
@@ -22,15 +27,38 @@ const CreatePost = () => {
   const postForm = useFormik({
     initialValues:{
         title :'',
-      content: ''
+      content: '',
+      username: sessionStorage.getItem('user'),
 },
-onSubmit : (values)=>{
-    console.log(values);
-},
+onSubmit: async (values) => {
+   console.log(values);
+    //sending request to backend
+  const res = await fetch("http://localhost:8000/post/add",
+  {method:'POST',
+   body:JSON.stringify(values),
+   headers:{
+    'Content-Type': 'application/json'
+   } ,
+
+  
+});
+  
+ console.log(res.status);
+ if(res.status === 200){
+  toast.success('Post Created Successfully😊')
+}
+
+ 
+
+} ,
+
 validationSchema:postSchema
 });
 
-
+const {LoggedIn, logout} = useUserContext();
+ if(!LoggedIn)
+ return<Home/>
+ 
 
 
   return (
@@ -62,7 +90,7 @@ validationSchema:postSchema
             >
               <NavLink to="/createpostchat"><i className="fas fa-comment mx-4 text-white" /></NavLink>
             </span>
-            <a href="#" className="mr-2">
+            <Link to='/myprofile' className="mr-2">
               <img
                 title="My Profile"
                 data-toggle="tooltip"
@@ -70,13 +98,13 @@ validationSchema:postSchema
                 style={{ width: 32, height: 32, borderRadius: 16 }}
                 src="https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128"
               />
-            </a>
+            </Link>
             <Link className="btn btn-sm btn-success mr-2 mx-4" to="/createpost">
               Create Post
             </Link>
-            <form action="#" method="POST" className="d-inline">
-              <button className="btn btn-sm btn-secondary">SIGN OUT</button>
-            </form>
+            <Link to="/home">
+              <button className="btn btn-sm btn-secondary" onClick={logout}>SIGN OUT</button>
+            </Link>
           </div>
         </div>
       </header>

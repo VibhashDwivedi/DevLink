@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Header from './Header'
 import '../css/createpost.css'
+import Home from './Home'
+import useUserContext from '../UserContext'
+
+
 
 const Loggedin = () => {
+
+
+ 
+const {LoggedIn, logout} = useUserContext();
+if(!LoggedIn)
+return<Home/>
+
   return (
     <div className='create-post-body vh-100'>
  <Header/>

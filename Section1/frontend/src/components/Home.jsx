@@ -2,10 +2,13 @@ import React from 'react'
 import { useFormik} from 'formik'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
-import {useNavigate} from 'react-router-dom'
+import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
+import Loggedin from './Loggedin'
+import useUserContext from '../UserContext'
 
 const Home = () => {
 
+const{setLoggedIn} = useUserContext();
   const navigate = useNavigate();
 
     const loginSchema = Yup.object().shape({
@@ -53,6 +56,13 @@ const Home = () => {
         title:'Login Successful'
       })
       navigate('/feed');
+
+      const data = await res.json();
+      sessionStorage.setItem('user',JSON.stringify(data.username));
+      console.log(data.username);
+      setLoggedIn(true);
+
+
     }else if(res.status === 401){
       Swal.fire('Invalid Credentials','Please check your credentials and try again.','warning')
     }
@@ -116,6 +126,13 @@ const Home = () => {
 
   return (
     <div className='body'>
+
+   
+
+
+
+
+
   <header className="header-bar mb-3">
     <div className="container d-flex flex-column flex-md-row align-items-center p-3">
       <h3 className="my-0 mr-md-auto fw-bold ">
@@ -248,7 +265,7 @@ const Home = () => {
             type="submit"
             className="py-2 mt-4 btn btn-lg btn-info btn-block"
           >
-            Sign up for DevSpace
+            Sign up for DevLink
           </button>
         </form>
             </div>

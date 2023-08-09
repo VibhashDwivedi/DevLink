@@ -1,23 +1,26 @@
 import React, { useState } from 'react'
-import '../css/createpost.css'
+import MyProfile from './MyProfile'
 import { Link } from 'react-router-dom'
 import Home from './Home';
 import useUserContext from '../UserContext';
-const Chat = () => {
 
+const MyProfileChat = () => {
+
+  const {LoggedIn} = useUserContext();
+ if(!LoggedIn)
+ return<Home/>
  
-
   return (
     <div>
-        
-  <div
+        <MyProfile/>
+        <div
     id="chat-wrapper"
     className="chat-wrapper shadow border-top border-left border-right chat--visible"
   >
     <div className="chat-title-bar">
       Chat{" "}
       <span className="chat-title-bar-close">
-        <Link to='/feed'>  <i className="fas fa-times-circle text-light" /></Link>
+        <Link to='/myprofile'>  <i className="fas fa-times-circle text-light" /></Link>
        
       </span>
     </div>
@@ -61,10 +64,8 @@ const Chat = () => {
       />
     </form>
   </div>
-
-
     </div>
   )
 }
 
-export default Chat
+export default MyProfileChat
