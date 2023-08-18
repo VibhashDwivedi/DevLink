@@ -7,6 +7,8 @@ const port = 8000;
 
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
+const utilRouter = require('./routers/util');
+const req = require('express/lib/request');
 
 
 app.use(cors({
@@ -16,6 +18,10 @@ app.use(express.json());
 
 app.use('/user',userRouter);
 app.use('/post',postRouter);
+app.use('/util', utilRouter);
+
+app.use(express.static('./uploads'));
+
 
 app.get('/',(req, res)=>{
     res.send("hello from the server!!");

@@ -9,6 +9,10 @@ import useUserContext from '../UserContext'
 const Post = () => {
 
   const {LoggedIn, logout} = useUserContext();
+  const [currentUser, setcurrentUser] = useState(
+    JSON.parse(sessionStorage.getItem('user'))
+  );
+
   if(!LoggedIn)
   return<Home/>
   
@@ -41,13 +45,7 @@ const Post = () => {
               <NavLink to="/postchat"><i className="fas fa-comment mx-4 text-white" /></NavLink>
             </span>
             <Link to='/myprofile' className="mr-2">
-              <img
-                title="My Profile"
-                data-toggle="tooltip"
-                data-placement="bottom"
-                style={{ width: 32, height: 32, borderRadius: 16 }}
-                src="https://gravatar.com/avatar/f64fc44c03a8a7eb1d52502950879659?s=128"
-              />
+            <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
             </Link>
             <Link className="btn btn-sm btn-success mr-2 mx-4" to="/createpost">
               Create Post

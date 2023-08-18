@@ -5,5 +5,6 @@ const myschema = new Schema({
     profile: String,
     email: String,
     password: String,
+    avatar:String,
 });
 module.exports = model('users', myschema);

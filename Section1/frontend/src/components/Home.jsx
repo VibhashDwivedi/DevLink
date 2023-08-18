@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useFormik} from 'formik'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
@@ -10,6 +10,7 @@ const Home = () => {
 
 const{setLoggedIn} = useUserContext();
   const navigate = useNavigate();
+  const [selImage, setselImage] = useState('');
 
     const loginSchema = Yup.object().shape({
         username: Yup.string()
@@ -36,6 +37,8 @@ const{setLoggedIn} = useUserContext();
           password: ''
     },
     onSubmit : async (values) => {
+
+      
       console.log(values);
       
       //submit values to backend
@@ -58,8 +61,8 @@ const{setLoggedIn} = useUserContext();
       navigate('/feed');
 
       const data = await res.json();
-      sessionStorage.setItem('user',JSON.stringify(data.username));
-      console.log(data.username);
+      sessionStorage.setItem('user',JSON.stringify(data));
+     // console.log(data.username);
       setLoggedIn(true);
 
 
@@ -84,9 +87,10 @@ const{setLoggedIn} = useUserContext();
           username: '',
           profile:'',
           email: '',
-          password: ''
+          password: '',
         },
         onSubmit: async (values) => {
+          values.avatar= selImage;
           console.log(values);
            //sending request to backend
          const res = await fetch("http://localhost:8000/user/add",
@@ -123,6 +127,19 @@ const{setLoggedIn} = useUserContext();
    validationSchema : SignupSchema
         });
 
+
+        const uploadFile=  async(e)=>{
+          let file = e.target.files[0];
+          setselImage(file.name);
+          const fd = new FormData();
+          fd.append('myfile', file);
+          const res =await fetch ('http://localhost:8000/util/uploadfile',{
+            method:'POST',
+            body :fd
+          });
+        
+          console.log(res.status);
+        }
 
   return (
     <div className='body'>
@@ -261,6 +278,14 @@ const{setLoggedIn} = useUserContext();
               value={signupForm.values.password}
             />
           </div>
+          <label htmlFor="" className='form-label'>Profile Pic</label>
+           
+          <input
+             type="file"
+             id=""
+             className="form-control "
+             onChange={uploadFile}/>
+         
           <button
             type="submit"
             className="py-2 mt-4 btn btn-lg btn-info btn-block"
