@@ -194,7 +194,7 @@ const{setLoggedIn} = useUserContext();
     </div>
   </header>
   {/* body starts here*/}
-  <div className="container py-md-2 ">
+  <div className="container  ">
     <div className="row align-items-center">
       <div className="col-lg-7 mb-lg-5">
         <h2 className="display-4 text-light">Space for Developers to Link👨‍💻!!</h2>
@@ -204,7 +204,7 @@ const{setLoggedIn} = useUserContext();
         </p>
       </div>
       <div className="col-lg-5 pl-lg-5 mb-3 py-lg-5">
-        <div className="card p-5 pt-3 shadow-lg " style={{border:'none'}}>
+        <div className="card p-5 pt-3 shadow-lg signup-card" style={{border:'none'}}>
             <div className="card-body">
             <i className="fa-solid fa-lock fa-2x d-block text-center mb-3"></i> 
             <form action="#" method="POST" id="registration-form" onSubmit={signupForm.handleSubmit}>

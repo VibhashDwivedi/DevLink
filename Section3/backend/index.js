@@ -7,7 +7,9 @@ const port = 8000;
 
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
+const likesRouter = require('./routers/likesRouter')
 const utilRouter = require('./routers/util');
+
 const req = require('express/lib/request');
 
 
@@ -19,6 +21,10 @@ app.use(express.json());
 app.use('/user',userRouter);
 app.use('/post',postRouter);
 app.use('/util', utilRouter);
+app.use('/likes',likesRouter);
+
+
+
 
 app.use(express.static('./uploads'));
 

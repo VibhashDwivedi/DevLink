@@ -15,6 +15,7 @@ import MyProfile from './components/MyProfile';
 import MyProfileChat from './components/MyProfileChat';
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './UserContext';
+import Search from './components/Search';
 
 
 function App() {
@@ -38,6 +39,7 @@ return (
   <Route path='createpostchat' element={<CreatePostChat/>}></Route>
   <Route path='myprofile' element={<MyProfile/>}></Route>
   <Route path='myprofilechat' element={<MyProfileChat/>}></Route>
+  <Route path='search' element={<Search/>}></Route>
   <Route path='*' element={<Error/>}></Route>
 
 </Routes>

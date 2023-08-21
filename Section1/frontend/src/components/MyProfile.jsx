@@ -24,15 +24,23 @@ const MyProfile = () => {
             </a>
           </h3>
           <div className="flex-row my-3 my-md-0 ms-auto">
-            <a
-              href="#"
+          <Link to="/feed"
+              className="text-white mr-2 header-search-icon mx-4"
+              title="Search"
+              data-toggle="tooltip"
+              data-placement="bottom"
+            >
+             <i class="fa-solid fa-house-user"></i>
+            </Link>
+            <Link to="/search"
+             
               className="text-white mr-2 header-search-icon"
               title="Search"
               data-toggle="tooltip"
               data-placement="bottom"
             >
               <i className="fas fa-search " />
-            </a>
+            </Link>
             <span
               className="text-white mr-2 header-chat-icon"
               title="Chat"
@@ -54,8 +62,23 @@ const MyProfile = () => {
         </div>
       </header>
       </div>
-
-      <h1></h1>
+<div className=' d-flex justify-content-center '>
+<div className="card mt-5 rounded-0 shadow-lg w-25 ">
+        <div className="card-body p-5">
+          <div className='text-center'>
+          <img width={90} height={90} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+          </div>
+          <h5 className="card-title mx-4   mt-4 text-dark me-auto">Name : {currentUser.username}</h5>
+          <h5 className="card-title mx-4 text-dark me-auto">Email : {currentUser.email}</h5>
+          <h5 className="card-title mx-4   text-dark me-auto">Profile : {currentUser.profile}</h5>
+        </div>
+        <div className="card-footer  py-4 d-flex justify-content-between ">
+          <Link><button className="btn btn-primary mx-5">Edit</button></Link>
+          <Link><button className="btn btn-danger mx-5">Delete</button></Link>
+        </div>
+      </div>
+</div>
+     
     </div>
   )
 }

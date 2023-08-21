@@ -25,15 +25,23 @@ const ProfilePost = () => {
             </a>
           </h3>
           <div className="flex-row my-3 my-md-0 ms-auto">
-            <a
-              href="#"
+          <Link to="/feed"
+              className="text-white mr-2 header-search-icon mx-4"
+              title="Search"
+              data-toggle="tooltip"
+              data-placement="bottom"
+            >
+             <i class="fa-solid fa-house-user"></i>
+            </Link>
+            <Link to="/search"
+              
               className="text-white mr-2 header-search-icon"
               title="Search"
               data-toggle="tooltip"
               data-placement="bottom"
             >
               <i className="fas fa-search " />
-            </a>
+            </Link>
             <span
               className="text-white mr-2 header-chat-icon"
               title="Chat"
