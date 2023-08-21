@@ -9,9 +9,7 @@ import { useFormik} from 'formik'
 
 const Loggedin = () => {
 
-  const [currentUser, setcurrentUser] = useState(
-    JSON.parse(sessionStorage.getItem('user'))
-  )
+ 
 
   const [post, setpost] = useState([])
   const [clicked, setClicked] = useState(false);
@@ -33,9 +31,11 @@ const Loggedin = () => {
 useEffect(() => {
   fetchUserData1();
 }, []);
-console.log(Tlist);
+//console.log(Tlist);
 const {LoggedIn, logout} = useUserContext();
-
+const [currentUser, setcurrentUser] = useState(
+  JSON.parse(sessionStorage.getItem('user'))
+)
 
 const likeform = useFormik({
   initialValues: {
@@ -106,11 +106,10 @@ const displayPost = ()=>{
            <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
            <form onSubmit={likeform.handleSubmit}>
             <button type='submit' className='btn btn-ouline-secondary w-15' 
-           
+           onChange={likeform.handleChange}
+           values={likeform.values.postId}
              onClick={()=> { handleLikeClick((posts._id) )}} 
-             onChange= {likeform.handleChange}
-             value= {likeform.values.postId}
-             {...likeform.values.postId = posts._id}
+            // {...likeform.values.postId = posts._id}
               >🧡 
              
               </button>{posts.likes || 0}
@@ -122,20 +121,12 @@ const displayPost = ()=>{
 }
 
 //to make sure that each user can like each post once only
-const check = (postId) => {
-  for(let i = 0; i<Tlist.length; i++){
-      if(Tlist[i].userId === currentUser._id && Tlist[i].postId === postId){
-          return false;
-      }
-  }
-  return true;
-}
-
-
 
 
 // to check if button is clicked and prevent further clickes 
 const handleLikeClick = (postId) => {
+  {likeform.values.postId = postId}
+  console.log(postId);
   if(!check(postId)){
     //setClicked(true);
     fetch(`http://localhost:8000/post/${postId}/likes`, {
@@ -149,11 +140,23 @@ const handleLikeClick = (postId) => {
   })
   .catch(err => {
       console.error(err);
-      setClicked(false);
+      //setClicked(false);
   })
   }
 };
 
+const check = (postId) => {
+  console.log(postId);
+  console.log(currentUser._id);
+  for(let i = 0; i<Tlist.length; i++){
+      if(Tlist[i].userId === currentUser._id && Tlist[i].postId === postId){
+          return true;
+           }
+  }
+  return false;
+}
+
+//console.log(check(post._id) );
 
 
 
