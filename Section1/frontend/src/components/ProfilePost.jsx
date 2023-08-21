@@ -83,11 +83,11 @@ const displayPost = () => {
               <div className=" text-black fw-bold mx-2 mt-2 fs-4">{posts.title}</div>
                <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
                 <div className=' text-black mx-3 pb-2 fw-light  '><i className="fa-solid fa-heart " style={{color:'red'}}></i><>  </>  {posts.likes}</div>
-               <div className=" p-4 py-2 mx-5" style={{marginTop:'-40px'}} onClick={()=> {deletepost(posts._id)}}><button >
-                Delete
-               </button>
+                
+               <div className=" p-4 py-2 ms-auto" style={{marginTop:'-40px'}}>
+               <i style={{color:'blue'}} onClick={()=>{navigate('/editpost/'+posts._id)}} class="fa-regular fa-pen-to-square" title='Edit'></i>
+               <i class="fa-solid fa-trash-can mx-3" title="delete" style={{color:'red'}} onClick={()=> {deletepost(posts._id)}}></i>
                </div>
-               <div className=" p-4 py-2 ms-auto" style={{marginTop:'-40px'}}><i onClick={()=>{navigate('/editpost/'+posts._id)}} class="fa-regular fa-pen-to-square" title='Edit'></i></div>
                </div>
             )
           })
