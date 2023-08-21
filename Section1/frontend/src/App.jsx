@@ -16,6 +16,7 @@ import MyProfileChat from './components/MyProfileChat';
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './UserContext';
 import Search from './components/Search';
+import EditPost from './components/EditPost';
 
 
 function App() {
@@ -32,14 +33,15 @@ return (
   <Route path='createpost' element={<CreatePost/>}></Route>
   <Route path='post' element={<Post/>}></Route>
   <Route path='postchat' element={<PostChat/>}></Route>
-  <Route path='profilepost' element={<ProfilePost/>}></Route>
+  {/* <Route path='profilepost' element={<ProfilePost/>}></Route> */}
   <Route path='profilepostchat' element={<ProfilePostChat/>}></Route>
   {/* <Route path='chat' element={<Chat/>}></Route> */}
   <Route path='chatvisible' element={<ChatVisible/>}></Route>
   <Route path='createpostchat' element={<CreatePostChat/>}></Route>
-  <Route path='myprofile' element={<MyProfile/>}></Route>
+  <Route path='myprofile' element={<ProfilePost/>}></Route>
   <Route path='myprofilechat' element={<MyProfileChat/>}></Route>
   <Route path='search' element={<Search/>}></Route>
+  <Route path='editpost/:id' element={<EditPost/>}></Route>
   <Route path='*' element={<Error/>}></Route>
 
 </Routes>

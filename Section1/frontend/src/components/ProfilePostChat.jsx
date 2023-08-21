@@ -19,7 +19,7 @@ const ProfilePostChat = () => {
     <div className="chat-title-bar">
       Chat{" "}
       <span className="chat-title-bar-close">
-        <Link to='/profilepost'>  <i className="fas fa-times-circle text-light" /></Link>
+        <Link to='/myprofile'>  <i className="fas fa-times-circle text-light" /></Link>
        
       </span>
     </div>

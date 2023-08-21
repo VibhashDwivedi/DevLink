@@ -1,6 +1,7 @@
 .create-post-body{
     background-image: url('../images/create.jpg');
     background-size: cover;
+    min-height: 100vh;
 }
 
 .title{
@@ -154,4 +155,9 @@ textarea.tall-textarea{
     border: none;
     outline: none;
     font-size:0.75rem;
+}
+
+.card-header-bg{
+    background-image: linear-gradient(to right, #044a96ce, #6c757d88);
+    
 }

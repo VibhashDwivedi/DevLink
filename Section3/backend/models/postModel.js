@@ -5,8 +5,9 @@ const myschema = new Schema({
 content: String,
 username:String,
 avatar:String,
-likes: { type: Number, default: 0 },
+likes: { type: Number, default: 0 , min:0},
 date: String,
 time: String, 
+profile:String,
 });
 module.exports = model('posts', myschema);

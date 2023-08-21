@@ -4,13 +4,14 @@ import Header from './Header'
 import { useFormik} from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-hot-toast';
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Home from './Home'
 import useUserContext from '../UserContext'
 
 
 
 const CreatePost = () => {
+  const navigate = useNavigate();
 
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem('user'))
@@ -32,6 +33,7 @@ const CreatePost = () => {
       content: '',
       username: currentUser.username,
       avatar: currentUser.avatar,
+      profile: currentUser.profile,
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
 },
@@ -51,6 +53,7 @@ onSubmit: async (values) => {
  console.log(res.status);
  if(res.status === 200){
   toast.success('Post Created Successfully😊')
+  navigate('/myprofile')
 }
 
  

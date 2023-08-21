@@ -58,12 +58,12 @@ const{setLoggedIn} = useUserContext();
         icon: 'success',
         title:'Login Successful'
       })
-      navigate('/feed');
-
+     
       const data = await res.json();
       sessionStorage.setItem('user',JSON.stringify(data));
      // console.log(data.username);
       setLoggedIn(true);
+      navigate('/feed');
 
 
     }else if(res.status === 401){

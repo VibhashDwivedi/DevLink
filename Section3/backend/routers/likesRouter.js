@@ -30,5 +30,20 @@ router.get('/getall',(req,res)=>{
     });
 });
 
+//delete by post id
+
+router.delete('/:id',(req,res)=>{
+    const id = req.params.id;
+    //delete by post id
+    Model.findOneAndDelete(id)
+    .then((result) => {
+        res.json(result);
+        console.log(result);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json();
+    });
+});
+
 
 module.exports = router;    
