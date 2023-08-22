@@ -96,17 +96,18 @@ const displayPost = ()=>{
   if(post.length===0)  return <h1 className='text-center text-white '>No Posts Found</h1>
   else{
       return post.map((posts) =>(
-          <div className='card shadow-lg mt-4'  style={{border:'none'}}>
-          <div className='card-header  card-header-bg '>
-          <div className="d-flex"><img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/>
- 
+          <div className='card shadow-lg mt-4 p-2'  style={{border:'none', backgroundColor:'wheat'}}>
+          <div className='card-header rounded-2 card-header-bg  '>
+          <div className="d-flex">
+          <Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
+            <img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/>
+ </Link>
 <Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
 <div className="text-black fw-3  mx-2 fs-4 "  >{posts.username}</div>
   </Link>
       
           {/* <div className=' text-muted ' style={{marginLeft:'300px'}}></div> */}
-          <div className=' text-muted ms-auto' >
-            📅{posts.date}   ⌚{posts.time}  </div>
+          
          
 
          </div>
@@ -114,7 +115,12 @@ const displayPost = ()=>{
          <p className=' text-muted 'style={{marginTop:'-8px', marginLeft:'44px'}} >{posts.profile}</p>
        
           </div>
-          <div className=" text-black fw-bold mx-2 mt-2 fs-4">{posts.title}</div>
+          <div className="d-flex">
+          <div className=" text-black fw-bold mx-2  fs-4">{posts.title}</div>
+          <div className=' text-muted ms-auto mx-2 mt-1' >
+            📅{posts.date}   ⌚{posts.time}  </div>
+          </div>
+          
            <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
            <form onSubmit={likeform.handleSubmit}>
             <button type='submit' className='btn btn-ouline-secondary w-15' 

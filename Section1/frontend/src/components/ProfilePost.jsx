@@ -39,15 +39,23 @@ const countPost = () => {
 console.log(count);
 return count;
 }
-
+ 
 
 const deletepost = async  (id) =>{
   console.log(id);
+  //pass alert before deleting
+  const c =  window.confirm('Are you sure you want to delete this post? ');
+  if(c===true ){
   const res = await  fetch('http://localhost:8000/post/delete/'+id, {method:'DELETE'});
   if(res.status === 200){
       fetchUserData1();
       toast.success('Post deleted successfully')
   } 
+}
+else 
+{
+  toast.error('Post not deleted')
+}
 }
 
 const displayPost = () => {
@@ -64,7 +72,7 @@ const displayPost = () => {
           
           return post.map((posts) => {
             return (
-              <div className='card shadow-lg mt-4'  style={{border:'none'}}>
+              <div className='card shadow-lg mt-4 p-2'  style={{border:'none', backgroundColor:'wheat'}}>
               {/* <div className='card-header  card-header-bg '> */}
               {/* <div className="d-flex"><img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/> */}
               {/* <div className="text-black fw-3  mx-2 fs-4">{posts.username}</div> */}
@@ -81,8 +89,8 @@ const displayPost = () => {
            
               {/* </div> */}
               <div className="d-flex">
-              <div className=" text-black fw-bold mx-2 mt-2 fs-4">{posts.title}</div>
-              <div className=' text-muted ms-auto' >
+              <div className=" text-black fw-bold mx-2  fs-4">{posts.title}</div>
+              <div className=' text-muted ms-auto mx-2 mt-1' >
                 📅{posts.date}   ⌚{posts.time}  </div> 
               </div>
               

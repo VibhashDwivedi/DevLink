@@ -231,7 +231,7 @@ const{setLoggedIn} = useUserContext();
               onChange={loginForm.handleChange}
               value={loginForm.values.password}
             />
-            <i class="fa-solid fa-eye" style={{marginLeft:'-30px',marginTop:'10px'}}
+            <i class="fa-solid fa-eye"   style={{marginLeft:'-30px',marginTop:'10px'}}
              onClick={
 
 function(){
