@@ -6,6 +6,7 @@ import Home from './Home'
 import useUserContext from '../UserContext'
 import { toast } from 'react-hot-toast'
 const ProfilePost = () => {
+ 
   const navigate = useNavigate();
 
   const {LoggedIn, logout} = useUserContext();
@@ -13,6 +14,27 @@ const ProfilePost = () => {
     JSON.parse(sessionStorage.getItem('user'))
   );
   const [Tlist, setTlist] = useState([]);
+
+  const [followed,setfollowed]=useState([]);
+  
+  const fetchFollowData = async () => {
+    const res = await fetch("http://localhost:8000/follow/getall", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 200) {
+      const data = await res.json();
+      //console.log(data);
+      setfollowed(data);
+    }
+
+  }
+  useEffect(() => {
+    fetchFollowData();
+  }, []);
 
   const fetchUserData1 = async () =>{
     const res = await fetch('http://localhost:8000/post/getall');
@@ -39,6 +61,27 @@ const countPost = () => {
 console.log(count);
 return count;
 }
+
+const countFollowers = () => {
+  let count = 0;
+  for(let i = 0; i<followed.length; i++){
+    if(followed[i].following === currentUser.username ){
+        count++;
+         }
+        }
+return count;
+}
+
+const countFollowing = () => {
+  let count = 0;
+  for(let i = 0; i<followed.length; i++){
+    if(followed[i].userId === currentUser._id ){
+        count++;
+         }
+        }
+return count;
+}
+
  
 
 const deletepost = async  (id) =>{
@@ -68,7 +111,14 @@ const displayPost = () => {
         }
         console.log(post);
 
-       
+        post.sort((a,b) => {
+          if(a.date > b.date) return -1;
+          if(a.date < b.date) return 1;
+          if(a.time > b.time) return -1;
+          if(a.time < b.time) return 1;
+          return 0;
+        });
+    
           
           return post.map((posts) => {
             return (
@@ -106,7 +156,22 @@ const displayPost = () => {
           })
 }
 
-
+const displayprofile = () => {
+  if(currentUser.avatar===""){
+    return <i  className="fa-solid fa-user fa-2xl " style={{color:'#e8e8e8'}}></i>
+  }
+  else{
+return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+   }
+ }
+const displayprofile2 = () => {
+  if(currentUser.avatar===""){
+    return <i  className="fa-solid fa-user fa-xl mx-2 " style={{color:'#8c8c8c'}}></i>
+  }
+  else{
+return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+   }
+ }
 
 
 
@@ -150,7 +215,7 @@ const displayPost = () => {
               <NavLink to="/profilepostchat"><i className="fas fa-comment mx-4 text-white" /></NavLink>
             </span>
             <Link to='/myprofile' className="mr-2">
-            <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+           {displayprofile()}
             </Link>
             <Link className="btn btn-sm btn-success mr-2 mx-4" to="/createpost">
               Create Post
@@ -166,7 +231,8 @@ const displayPost = () => {
           <div className="card">
             <div className="card-header">
             <h2 >
-  <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+  {/* <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" /> */}
+   {displayprofile2()}
     {currentUser.username}
   </h2>
 
@@ -177,10 +243,10 @@ const displayPost = () => {
 Posts : {countPost()}
 </button>
 <button className="btn btn-dark mx-4">
-Followers : 3
+Followers : {countFollowers()}
 </button>
 <button className="btn btn-dark">
-Following : 3
+Following : {countFollowing()}
 </button>
 
             </div>

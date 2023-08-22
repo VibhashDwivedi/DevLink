@@ -63,7 +63,14 @@ console.log(user._id);
         const displayPost = () => {
             //display posts of curentuser
           
-          
+            post.sort((a,b) => {
+              if(a.date > b.date) return -1;
+              if(a.date < b.date) return 1;
+              if(a.time > b.time) return -1;
+              if(a.time < b.time) return 1;
+              return 0;
+            });
+        
                  
                     
                     return post.map((posts) => {
@@ -103,7 +110,14 @@ console.log(user._id);
 
           }
 
-  
+          const displayprofile = () => {
+            if(user.avatar===""){
+              return <i  className="fa-solid fa-user fa-xl mx-2 mt-2" style={{color:'#8c8c8c'}}></i>
+            }
+            else{
+          return <img width={35} height={35} className=' rounded-circle' src={"http://localhost:8000/"+user.avatar} alt="" />
+             }
+           }
 
 
 
@@ -117,11 +131,12 @@ console.log(user._id);
           <div className="card">
             <div className="card-header">
             <h2 >
-  <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+user.avatar} alt="" />
+  {/* <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+user.avatar} alt="" /> */}
+    {displayprofile()}
     {user.username}
   </h2>
 
-  <p className=' text-muted ' style={{marginTop:'-20px' , marginLeft:'58px'}}>{user.profile}</p>
+  <p className=' text-muted ' style={{marginTop:'-20px' , marginLeft:'38px'}}>{user.profile}</p>
   
   <div className="profile-nav nav nav-tabs pt-2 mb-4">
 <button className="btn btn-dark">

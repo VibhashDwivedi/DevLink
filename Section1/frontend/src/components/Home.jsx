@@ -6,11 +6,17 @@ import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
 import Loggedin from './Loggedin'
 import useUserContext from '../UserContext'
 
+
+
+
+
 const Home = () => {
 
 const{setLoggedIn} = useUserContext();
   const navigate = useNavigate();
   const [selImage, setselImage] = useState('');
+
+ const userNameRegex = /^[a-zA-Z0-9_-]*$/;
 
     const loginSchema = Yup.object().shape({
         username: Yup.string()
@@ -20,12 +26,12 @@ const{setLoggedIn} = useUserContext();
         password: Yup.string().required('Required'),
       });
 
-    const SignupSchema = Yup.object().shape({
+      const SignupSchema = Yup.object().shape({
         username: Yup.string()
           .min(5, 'Too Short!')
           .max(50, 'Too Long!')
           .required('Required')
-          //validate if username is present
+        .matches(userNameRegex, 'Username can only contain alphanumeric characters, underscores and hyphens')
           .test("username", "Username already registered", function (username) {
             return checkAvailabilityUsername(username);}
             ),
@@ -37,7 +43,7 @@ const{setLoggedIn} = useUserContext();
           ),
         password: Yup.string().min(8,'Too Short!').required('Required'),
       });
-
+   
     //check if email is present
     const checkAvailabilityEmail = async (email) => {
       const res = await fetch("http://localhost:8000/user/checkemail/"+email,
@@ -253,7 +259,7 @@ function(){
               className="btn btn-primary btn-sm login"
               style={{ width: "100%" }}
             >
-              Log In
+              Login
             </button>
           </div>
         </div>

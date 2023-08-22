@@ -16,9 +16,28 @@ const Loggedin = () => {
     JSON.parse(sessionStorage.getItem('user'))
   )
   
+  const[followed, setfollowed] = useState([])
+  const fetchFollowData = async () => {
+    const res = await fetch("http://localhost:8000/follow/getall", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 200) {
+      const data = await res.json();
+      //console.log(data);
+      setfollowed(data);
+    }
+  };
+  useEffect(() => {
+    fetchFollowData();
+  }, []);
+
 
   const [post, setpost] = useState([])
-  const [clicked, setClicked] = useState(false);
+  
 
   const [Tlist, setTlist] = useState([]);
 
@@ -82,25 +101,68 @@ fetchUserData();
 
 
 // const [Likes, setLikes] = useState(0);
+const displayprofile = (avt) => {
+  if(avt===""){
+    return <i  className="fa-solid fa-user fa-2xl mx-1 mt-2" style={{color:'#e8e8e8'}}></i>
+  }
+  else{
+return <img width={35} height={35} className=' rounded-circle' src={"http://localhost:8000/"+avt} alt="" />
+   }
+ }
 
 
-
-
+ let post2=[];
 
 
 
 if(!LoggedIn)
 return<Home/>
 
+
+//to display posts of only followed users
+post2 = post.filter((posts) => {
+  
+  for(let i = 0; i<followed.length; i++){
+      if(followed[i].userId === currentUser._id && followed[i].following === posts.username){
+          return true;
+      }
+
+}
+return false;
+})
+
+//console.log(post2);
+
+
+
 const displayPost = ()=>{
-  if(post.length===0)  return <h1 className='text-center text-white '>No Posts Found</h1>
+  if(post2.length===0)  return <h1 className='text-center text-white '>No Posts Found <div className='fs-3'>
+    <Link to="/search" className='text-decoration-none text-info' title="click">Follow more Users here</Link></div>
+  </h1>
   else{
-      return post.map((posts) =>(
+   // to sort posts by date and time
+    post2.sort((a,b) => {
+      if(a.date > b.date) return -1;
+      if(a.date < b.date) return 1;
+      if(a.time > b.time) return -1;
+      if(a.time < b.time) return 1;
+      return 0;
+    });
+
+    //to display posts of only followed users
+    
+
+      return post2.map((posts) =>(
+
+        //to display posts of only followed users
+        
+
           <div className='card shadow-lg mt-4 p-2'  style={{border:'none', backgroundColor:'wheat'}}>
           <div className='card-header rounded-2 card-header-bg  '>
           <div className="d-flex">
           <Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
-            <img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/>
+          {/* <img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/> */}
+          {displayprofile(posts.avatar)}
  </Link>
 <Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
 <div className="text-black fw-3  mx-2 fs-4 "  >{posts.username}</div>
@@ -134,11 +196,10 @@ const displayPost = ()=>{
               </button>{posts.likes || 0}
            </form>
            </div>
-         
-      )) 
-  }
+           
+      ))
 }
-
+}
 const displaylikes = (postId)=>{
   if(!check(postId)) 
   return <i className="fa-regular fa-heart"></i>
@@ -185,12 +246,17 @@ const check = (postId) => {
 
 
 
+
   return (
     <div className='create-post-body vh-200'>
  <Header/>
   <div className="container py-md-5 container--narrow">
+  <p className='display-6 text-center  text-white'>The Latest from those you follow</p>
+
+ 
     
   <div >{displayPost()}</div>'
+ 
   </div>
   </div>
  

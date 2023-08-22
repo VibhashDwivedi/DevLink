@@ -8,6 +8,7 @@ const port = 8000;
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
 const likesRouter = require('./routers/likesRouter')
+const followRouter = require('./routers/followRouter')
 const utilRouter = require('./routers/util');
 
 const req = require('express/lib/request');
@@ -22,6 +23,7 @@ app.use('/user',userRouter);
 app.use('/post',postRouter);
 app.use('/util', utilRouter);
 app.use('/likes',likesRouter);
+app.use('/follow',followRouter);
 
 
 
