@@ -17,6 +17,7 @@ import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './UserContext';
 import Search from './components/Search';
 import EditPost from './components/EditPost';
+import UserProfile from './components/UserProfile';
 
 
 function App() {
@@ -42,6 +43,7 @@ return (
   <Route path='myprofilechat' element={<MyProfileChat/>}></Route>
   <Route path='search' element={<Search/>}></Route>
   <Route path='editpost/:id' element={<EditPost/>}></Route>
+  <Route path='userprofile/:username' element={<UserProfile/>}></Route>
   <Route path='*' element={<Error/>}></Route>
 
 </Routes>

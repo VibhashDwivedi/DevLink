@@ -35,28 +35,21 @@ const EditPost = () => {
     }, []);
 
 
-   console.log(post)
+  // console.log(post.title)
     
-    const postSchema = Yup.object().shape({
+    const updateSchema = Yup.object().shape({
         title: Yup.string()
         .required('Required'),
         content: Yup.string().required('Required'),
       });
     
-    
-    
-    
-    
-      const postForm = useFormik({
-        initialValues:{
-            title :post.title,
+      const updateForm = useFormik({
+        
+        initialValues: {
+
+          title: post.title,
           content: post.content,
-          username: currentUser.username,
-          avatar: currentUser.avatar,
-          profile: currentUser.profile,
-          date: post.date,
-          time: post.time,
-    },
+        },
     
   
       onSubmit: async (values) => {
@@ -75,17 +68,12 @@ const EditPost = () => {
         
        console.log(res.status);
        if(res.status === 200){
-        Swal.fire({
-          icon:'success',
-          title: 'Update Successful',
-        });
+       toast.success('Post Updated Successfully😊')
+       
       navigate('/myprofile');
       }else{
-        Swal.fire({
-          icon:'error',
-          title: 'Oops',
-          text: 'Some error occured'
-      });
+       toast.error('Something went wrong😢')
+
   
   
         }
@@ -93,7 +81,7 @@ const EditPost = () => {
        
   
   } ,
-  validationSchema : postSchema
+  validationSchema : updateSchema
     });
 
     
@@ -156,17 +144,17 @@ const EditPost = () => {
       </div>
 <div >
   <div className="container py-md-3 container--narrow">
-        <form  onSubmit={postForm.handleSubmit}>
-            <div className="form-group">
+        <form  onSubmit={updateForm.handleSubmit}>
+            <div className="">
                 <label htmlFor="" className="text-light mb-1 fw-bold fs-3 title">Title</label>
-                <p  className='error-label'>{postForm.touched.title? postForm.errors.title :''}</p>
-                <input  name="title" id="" className="form-control form-control-lg form-control-title" type="text"   onChange={postForm.handleChange} value={postForm.values.title}/>
+                <p  className='error-label'>{updateForm.touched.title? updateForm.errors.title :''}</p>
+                <input   name="title" id="" className="form-control form-control-lg form-control-title" type="text"   onChange={updateForm.handleChange} value={updateForm.values.title}/>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="" className=" text-light mb-1"><small>Content</small></label>
-                <p  className='error-label'>{postForm.touched.content? postForm.errors.content :''}</p>
-                <textarea name="content" id="" className="form-control tall-textarea form-control-content" type="text"  onChange={postForm.handleChange} value={postForm.values.content}></textarea>
+            <div className="">
+                <label htmlFor="" className=" text-light mb-1 fs-5 fw-bold">Content</label>
+                <p  className='error-label'>{updateForm.touched.content? updateForm.errors.content :''}</p>
+                <textarea name="content" id="" className="form-control tall-textarea form-control-content" type="text"  onChange={updateForm.handleChange} value={updateForm.values.content}></textarea>
             </div>
 
             <button type='submit' className="btn btn-info mt-2">Update Post</button>

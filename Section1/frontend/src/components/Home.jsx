@@ -24,11 +24,55 @@ const{setLoggedIn} = useUserContext();
         username: Yup.string()
           .min(5, 'Too Short!')
           .max(50, 'Too Long!')
-          .required('Required'),
+          .required('Required')
+          //validate if username is present
+          .test("username", "Username already registered", function (username) {
+            return checkAvailabilityUsername(username);}
+            ),
           profile:Yup.string().required('Required'),
-        email: Yup.string().email('Invalid email').required('Required'),
+        email: Yup.string().email('Invalid email').required('Required')
+        //validate if email is present
+        .test("email", "Email already registered", function (email) {
+          return checkAvailabilityEmail(email);}
+          ),
         password: Yup.string().min(8,'Too Short!').required('Required'),
       });
+
+    //check if email is present
+    const checkAvailabilityEmail = async (email) => {
+      const res = await fetch("http://localhost:8000/user/checkemail/"+email,
+      {method:'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      } ,
+      });
+      console.log(res.status);
+      if(res.status === 200){
+        return true;
+
+      }else if(res.status === 401){
+        return false;
+      }
+    }
+    
+
+    //check if username is present
+    const checkAvailabilityUsername = async (username) => {
+      const res = await fetch("http://localhost:8000/user/checkusername/"+username,
+      {method:'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      } ,
+      });
+      console.log(res.status);
+      if(res.status === 200){
+        return true;
+
+      }else if(res.status === 401){
+        return false;
+      }
+    }
+
 
 
     const loginForm = useFormik({
@@ -82,6 +126,10 @@ const{setLoggedIn} = useUserContext();
       validationSchema: loginSchema
 });
 
+
+//function to show password
+
+
     const signupForm = useFormik({
         initialValues: {
           username: '',
@@ -110,7 +158,9 @@ const{setLoggedIn} = useUserContext();
            title: 'Signup Success',
            text: 'Now Login To Continue'
          });
-        
+        //reset signup form
+
+        signupForm.resetForm();
        }else{
          Swal.fire({
            icon:'error',
@@ -124,7 +174,8 @@ const{setLoggedIn} = useUserContext();
         
    
    } ,
-   validationSchema : SignupSchema
+   validationSchema : SignupSchema,
+   //validateOnChange : false,
         });
 
 
@@ -170,16 +221,32 @@ const{setLoggedIn} = useUserContext();
               value={loginForm.values.username}
             />
           </div>
-          <div className="col-md mr-0 pr-md-0 mb-3 mb-md-0">
+          <div className="col-md mr-0 pr-md-0 mb-3 mb-md-0 d-flex">
             <input
               name="password"
               className="form-control form-control-sm input-dark"
+              id='typepass'
               type="password"
               placeholder="Password"
               onChange={loginForm.handleChange}
               value={loginForm.values.password}
             />
-          </div>
+            <i class="fa-solid fa-eye" style={{marginLeft:'-30px',marginTop:'10px'}}
+             onClick={
+
+function(){
+  var x = document.getElementById("typepass");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+
+}
+}></i>
+             
+            </div>
+           
           <div className="col-md-auto ">
             <button
             type='submit'
@@ -264,19 +331,35 @@ const{setLoggedIn} = useUserContext();
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password-register" className="text-muted mb-1">
+            <label htmlFor="password-register" className="text-muted mb-1" >
               <small>Password</small>
             </label>
             <p  className='error-label'>{signupForm.touched.password? signupForm.errors.password:''}</p>
-            <input
+           <div className="d-flex">
+           <input
               name="password"
               id="password-register"
               className="form-control"
               type="password"
-              placeholder="Create a password"
+              placeholder='Min 8 Characters'
               onChange={signupForm.handleChange}
               value={signupForm.values.password}
             />
+             <i class="fa-solid fa-eye" style={{marginLeft:'-30px',marginTop:'10px'}}
+             onClick={
+
+function(){
+  var x = document.getElementById("password-register");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+
+}
+}></i>
+           </div>
+            
           </div>
           <label htmlFor="" className='form-label'>Profile Pic</label>
            

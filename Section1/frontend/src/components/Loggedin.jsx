@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Header from './Header'
 import '../css/createpost.css'
 import Home from './Home'
@@ -10,6 +10,8 @@ import { toast } from 'react-hot-toast'
 
 const Loggedin = () => {
 
+
+  const navigate=useNavigate();
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem('user'))
   )
@@ -59,6 +61,8 @@ const likeform = useFormik({
 
 
 const fetchUserData = async () =>{
+
+
   const res = await fetch('http://localhost:8000/post/getall');
 
   console.log(res.status);
@@ -95,9 +99,11 @@ const displayPost = ()=>{
           <div className='card shadow-lg mt-4'  style={{border:'none'}}>
           <div className='card-header  card-header-bg '>
           <div className="d-flex"><img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/>
-          <div className="text-black fw-3  mx-2 fs-4">{posts.username}</div>
-        
-          
+ 
+<Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
+<div className="text-black fw-3  mx-2 fs-4 "  >{posts.username}</div>
+  </Link>
+      
           {/* <div className=' text-muted ' style={{marginLeft:'300px'}}></div> */}
           <div className=' text-muted ms-auto' >
             📅{posts.date}   ⌚{posts.time}  </div>

@@ -6,6 +6,11 @@ const Model = require('../models/postModel');
 
 
 
+// add post to db in post collection in mongodb in devlinkdb database in descending order of date and time
+
+
+
+
 
 router.post('/add',(req,res)=>{
     console.log(req.body);
@@ -31,6 +36,19 @@ router.get('/getbyid/:id',(req,res)=>{
       res.status(500).json();
   });
   });
+
+  //router to get a user by username
+router.get('/getbyusername/:username',(req,res)=>{
+  console.log(req.params.username);
+  Model.find({username:req.params.username})
+  .then((result) => {
+      res.json(result);
+  }).catch((err) => {
+      console.log(err);
+      res.status(500).json();
+  });
+  });
+  
   
 router.get('/getall',(req,res)=>{
 
