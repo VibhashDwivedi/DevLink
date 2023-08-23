@@ -19,6 +19,9 @@ const { createContext } = require("react");
      const [LoggedIn, setLoggedIn] = useState(currentUser !==null ? true : false);
      
      const logout = () => {
+        //confirm logout
+     
+      
         sessionStorage.removeItem('user');
         setcurrentUser(null);
         setLoggedIn(false);
@@ -28,6 +31,7 @@ const { createContext } = require("react");
             text:'Thank you for visiting us!',
            
           })
+         
      }
 
     return <UserContext.Provider value={{ LoggedIn, setLoggedIn, logout}}>

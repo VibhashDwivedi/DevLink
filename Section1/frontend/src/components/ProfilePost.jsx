@@ -10,11 +10,13 @@ const ProfilePost = () => {
   const navigate = useNavigate();
 
   const {LoggedIn, logout} = useUserContext();
+
+ 
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem('user'))
   );
   const [Tlist, setTlist] = useState([]);
-
+const [Likes, setLikes] = useState([]);
   const [followed,setfollowed]=useState([]);
   
   const fetchFollowData = async () => {
@@ -50,6 +52,34 @@ const ProfilePost = () => {
 useEffect(() => {
   fetchUserData1();
 }, []);
+
+const fetchUserLikes = async () => {
+  const res = await fetch("http://localhost:8000/likes/getall") 
+    console.log(res.status);
+
+    if(res.status ===200){
+        const data = await res.json();
+        setLikes(data);
+        // setsearch(data);
+    }
+}
+
+useEffect(() => {
+  fetchUserLikes();
+}, []);
+
+const countLikes = (x) => {
+  let count = 0;
+  for(let i = 0; i<Likes.length; i++){
+    if(Likes[i].postId === x ){
+        count++;
+         }
+        }
+return count;
+}
+
+
+
 
 const countPost = () => {
   let count = 0;
@@ -145,7 +175,7 @@ const displayPost = () => {
               </div>
               
                <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
-                <div className=' text-black mx-3 pb-2 fw-light  '><i className="fa-solid fa-heart " style={{color:'red'}}></i><>  </>  {posts.likes}</div>
+               <div className=' text-black mx-3 pb-2 fw-light  '><i className="fa-solid fa-heart " style={{color:'red'}}></i> {countLikes(posts._id)}</div>
                 
                <div className=" p-4 py-2 ms-auto" style={{marginTop:'-40px'}}>
                <i style={{color:'blue'}} onClick={()=>{navigate('/editpost/'+posts._id)}} class="fa-regular fa-pen-to-square" title='Edit'></i>
@@ -155,6 +185,18 @@ const displayPost = () => {
             )
           })
 }
+
+
+
+
+
+  
+   
+
+
+
+
+
 
 const displayprofile = () => {
   if(currentUser.avatar===""){
@@ -172,6 +214,11 @@ const displayprofile2 = () => {
 return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
    }
  }
+
+ 
+
+
+
 
 
 
@@ -259,6 +306,9 @@ Following : {countFollowing()}
   }
  
 </div>
+
+
+
 
 
             </div>

@@ -32,10 +32,10 @@ router.get('/getall',(req,res)=>{
 
 //delete by post id
 
-router.delete('/:id',(req,res)=>{
-    const id = req.params.id;
+router.delete('/delete/:postId',(req,res)=>{
+    const postId = req.params.postId;
     //delete by post id
-    Model.findOneAndDelete(id)
+    Model.findOneAndDelete({postId:postId})
     .then((result) => {
         res.json(result);
         console.log(result);

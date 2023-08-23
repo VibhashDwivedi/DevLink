@@ -117,7 +117,7 @@ const{setLoggedIn} = useUserContext();
 
 
     }else if(res.status === 401){
-      Swal.fire('Invalid Credentials','Please check your credentials and try again.','warning')
+      Swal.fire('Invalid Credentials','Invalid Email or Password.','warning')
     }
     else{
       Swal.fire({
@@ -282,11 +282,14 @@ function(){
             <i className="fa-solid fa-lock fa-2x d-block text-center mb-3"></i> 
             <form action="#" method="POST" id="registration-form" onSubmit={signupForm.handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username-register" className="text-muted mb-1">
-              <small>Username</small>
-            </label>
+            {/* <label htmlFor="username-register" className="text-muted mb-1">
+              <small className='mx-4'>Username</small>
+            </label> */}
             <p  className='error-label'>{signupForm.touched.username? signupForm.errors.username :''}</p>
-            <input
+
+           <div className="d-flex">
+           <i class="fa-solid fa-user fa-2x me-3"></i>
+           <input
               name="username"
               id="username-register"
               className="form-control"
@@ -296,16 +299,21 @@ function(){
               onChange={signupForm.handleChange}
               value={signupForm.values.username}
             />
+           </div>
+
+           
           </div>
           <div className="form-group">
-            <label htmlFor="type-register" className="text-muted mb-1">
+            {/* <label htmlFor="type-register" className="text-muted mb-1">
               <small>Profile</small>
-            </label>
+            </label> */}
             <p  className='error-label'>{signupForm.touched.profile? signupForm.errors.profile :''}</p>
-            <select
+           <div className="d-flex">
+           <i class="fa-solid fa-user-tie fa-2x me-3"></i>
+           <select
               name="profile"
               id="profile-register"
-              className="form-control"
+              className="form-control text-muted"
               type="text"
               placeholder="Pick a profile"
               autoComplete="off"
@@ -319,13 +327,19 @@ function(){
               <option value="ML Engineer">ML Engineer</option>
               <option value="Coding Instructor">Coding Instructor</option>
             </select>
+           </div>
+           
+            
           </div>
           <div className="form-group">
-            <label htmlFor="email-register" className="text-muted mb-1">
+            {/* <label htmlFor="email-register" className="text-muted mb-1">
               <small>Email</small>
-            </label>
+            </label> */}
             <p  className='error-label'>{signupForm.touched.email? signupForm.errors.email :''}</p>
-            <input
+           
+           <div className="d-flex">
+           <i class="fa-solid fa-envelope fa-2x me-3"></i>
+           <input
               name="email"
               id="email-register"
               className="form-control"
@@ -335,23 +349,26 @@ function(){
               onChange={signupForm.handleChange}
               value={signupForm.values.email}
             />
+           </div>
+           
           </div>
           <div className="form-group">
-            <label htmlFor="password-register" className="text-muted mb-1" >
+            {/* <label htmlFor="password-register" className="text-muted mb-1" >
               <small>Password</small>
-            </label>
+            </label> */}
             <p  className='error-label'>{signupForm.touched.password? signupForm.errors.password:''}</p>
            <div className="d-flex">
+           <i class="fa-solid fa-key fa-2x me-3"></i>
            <input
               name="password"
               id="password-register"
               className="form-control"
               type="password"
-              placeholder='Min 8 Characters'
+              placeholder='Password here (Min 8 Characters)'
               onChange={signupForm.handleChange}
               value={signupForm.values.password}
             />
-             <i class="fa-solid fa-eye" style={{marginLeft:'-30px',marginTop:'10px'}}
+             <i class="fa-solid fa-eye px-2" style={{marginLeft:'-35px',marginTop:'10px'}}
              onClick={
 
 function(){
@@ -367,20 +384,28 @@ function(){
            </div>
             
           </div>
-          <label htmlFor="" className='form-label'>Profile Pic</label>
-           
-          <input
+          {/* <label htmlFor="" className='form-label'>Profile Pic</label> */}
+
+         <div className="d-flex mt-4">
+         <i class="fa-solid fa-camera fa-2x me-3"></i>
+         <input
              type="file"
              id=""
              className="form-control "
+             placeholder='Upload Profile Pic'
              onChange={uploadFile}/>
-         
-          <button
+         </div>
+
+          
+         <div className="d-flex justify-content-center">
+         <button
             type="submit"
-            className="py-2 mt-4 btn btn-lg btn-info btn-block"
+            className="py-2 mt-4 btn btn-lg btn-info   m-auto"
           >
             Sign up for DevLink
           </button>
+         </div>
+         
         </form>
             </div>
         </div>

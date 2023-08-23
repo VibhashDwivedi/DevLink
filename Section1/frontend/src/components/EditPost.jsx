@@ -44,6 +44,8 @@ const EditPost = () => {
       });
     
       const updateForm = useFormik({
+        //keep earlier values
+        enableReinitialize: true,
         
         initialValues: {
 

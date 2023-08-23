@@ -86,7 +86,7 @@ const Search = () => {
   const follow = (x) => {
     if (followed.length > 0) {
       const result = followed.filter((user) => {
-        return user.following === x;
+        return user.following === x && user.userId === currenUser._id;
       });
       if (result.length > 0) {
         return <button className="btn btn-secondary" onClick={() => unfollow(x)}><i class="fa-solid fa-user-minus mx-1"></i>  Following</button>

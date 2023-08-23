@@ -7,13 +7,34 @@ import { useFormik } from 'formik';
 const UserProfile = () => {
 
 
-  const [currenUser, setcurrenUser] = useState(
+  const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
   )
     const {username} = useParams();
     const[user, setuser] = useState([]);
     const[post, setpost] = useState([]);
     const[followed,setfollowed]=useState(false);
+
+    const [Likes, setLikes] = useState([]);
+
+    const fetchUserLikes = async () =>{
+      const res = await fetch('http://localhost:8000/likes/getall');
+  
+      console.log(res.status);
+  
+      if(res.status ===200){
+          const data = await res.json();
+          setLikes(data);
+          // setsearch(data);
+      }
+  };
+  useEffect(() => {
+    fetchUserLikes();
+  }, [Likes]);
+
+
+
+
      
     const fetchFollowData = async () => {
       const res = await fetch("http://localhost:8000/follow/getall", {
@@ -102,6 +123,80 @@ console.log(user._id);
         return count;
         }
 
+        const countLikes = (x) => {
+          let count = 0;
+          for(let i = 0; i<Likes.length; i++){
+            if(Likes[i].postId === x ){
+                count++;
+                 }
+                }
+        return count;
+        }
+        
+        const like = (x) => {
+          if (Likes.length > 0) {
+            const result = Likes.filter((user) => {
+              return user.postId === x && user.username === currentUser.username;
+            });
+            if (result.length > 0) {
+              return <button className="btn btn-outline-white" onClick={() => unlikepost(x)}><i className="fa-solid fa-heart me-1" style={{color:'red'}}></i> {countLikes(x)}</button>
+            } else {
+              return <button className="btn btn-outline-white" onClick={() => likepost(x)}><i className="fa-regular fa-heart me-1" ></i> {countLikes(x)}</button>
+            }
+          } else {
+            return <button className="btn btn-outline-white" onClick={() => likepost(x)}><i className="fa-regular fa-heart me-1" ></i> {countLikes(x)}</button>
+          }
+        }
+        
+          const likepost = async (x) => {
+            const res = await fetch("http://localhost:8000/likes/add", 
+              {method:'POST',
+              body:JSON.stringify(
+                {
+                  username:currentUser.username,
+                  postId:x
+                }
+              ),
+              headers:{
+               'Content-Type': 'application/json'
+              } ,
+             
+             
+           });
+        
+           toast.success(`post liked`);
+           fetchUserLikes();
+        
+            if (res.status === 500) {
+              const data = await res.json();
+              toast.success("Liked");
+              console.log(data);
+              fetchUserLikes();
+            }
+          }
+        
+          const unlikepost = async (x) => {
+            const res = await fetch("http://localhost:8000/likes/delete/"+ x, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+        
+            if (res.status === 200) {
+              const data = await res.json();
+              toast.success(`Post disliked`);
+              console.log(data);
+              fetchUserLikes();
+            }
+          }
+        
+           
+        
+
+
+
+
 
         const displayPost = () => {
             //display posts of curentuser
@@ -142,7 +237,7 @@ console.log(user._id);
                         </div>
                         
                          <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
-                         <div className=' text-black mx-3 pb-2 fw-light  '><i className="fa-solid fa-heart " style={{color:'red'}}></i><>  </>  {posts.likes}</div>
+                         <div className=' text-black mx-3 pb-2 fw-light  '>{like(posts._id)}</div>
                
                
                           
@@ -183,7 +278,7 @@ console.log(user._id);
                 body:JSON.stringify(
                   {
                     "following":x,
-                    "userId":currenUser._id
+                    "userId":currentUser._id
                   }
                 ),
                 headers:{

@@ -12,11 +12,16 @@ const Loggedin = () => {
 
 
   const navigate=useNavigate();
+
   const [currentUser, setcurrentUser] = useState(
     JSON.parse(sessionStorage.getItem('user'))
   )
   
   const[followed, setfollowed] = useState([])
+  const [post, setpost] = useState([])
+  const [Likes, setLikes] = useState([]);
+
+
   const fetchFollowData = async () => {
     const res = await fetch("http://localhost:8000/follow/getall", {
       method: "GET",
@@ -33,50 +38,28 @@ const Loggedin = () => {
   };
   useEffect(() => {
     fetchFollowData();
-  }, []);
+  }, [followed]);
 
 
-  const [post, setpost] = useState([])
   
 
-  const [Tlist, setTlist] = useState([]);
-
-  const fetchUserData1 = async () =>{
+  const fetchUserLikes = async () =>{
     const res = await fetch('http://localhost:8000/likes/getall');
 
     console.log(res.status);
 
     if(res.status ===200){
         const data = await res.json();
-        setTlist(data);
+        setLikes(data);
         // setsearch(data);
     }
 };
 useEffect(() => {
-  fetchUserData1();
-}, [Tlist]);
+  fetchUserLikes();
+}, [Likes]);
 //console.log(Tlist);
 const {LoggedIn, logout} = useUserContext();
 
-//setcurrentUser(JSON.parse(sessionStorage.getItem('user')))
-const likeform = useFormik({
-  initialValues: {
-    userId:currentUser._id,
-    //to get post id of the post that is clicked
-    postId: '',
-  },
-  onSubmit: async (values) => {
-     //sending request to backend
-   const res = await fetch("http://localhost:8000/likes/add",
-   {method:'POST',
-    body:JSON.stringify(values),
-    headers:{
-     'Content-Type': 'application/json'
-    } ,
-
-   
- });
-}});
 
 
 const fetchUserData = async () =>{
@@ -98,6 +81,81 @@ useEffect(() => {
 fetchUserData();
 }, []);
 
+const countLikes = (x) => {
+  let count = 0;
+  for(let i = 0; i<Likes.length; i++){
+    if(Likes[i].postId === x ){
+        count++;
+         }
+        }
+return count;
+}
+
+const like = (x) => {
+  if (Likes.length > 0) {
+    const result = Likes.filter((user) => {
+      return user.postId === x && user.username === currentUser.username;
+    });
+    if (result.length > 0) {
+      return <button className="btn btn-outline-white" onClick={() => unlikepost(x)}><i className="fa-solid fa-heart me-1" style={{color:'red'}}></i> {countLikes(x)}</button>
+    } else {
+      return <button className="btn btn-outline-white" onClick={() => likepost(x)}><i className="fa-regular fa-heart me-1" ></i> {countLikes(x)}</button>
+    }
+  } else {
+    return <button className="btn btn-outline-white" onClick={() => likepost(x)}><i className="fa-regular fa-heart me-1" ></i> {countLikes(x)}</button>
+  }
+}
+
+  const likepost = async (x) => {
+    const res = await fetch("http://localhost:8000/likes/add", 
+      {method:'POST',
+      body:JSON.stringify(
+        {
+          username:currentUser.username,
+          postId:x
+        }
+      ),
+      headers:{
+       'Content-Type': 'application/json'
+      } ,
+     
+     
+   });
+
+   toast.success(`post liked`);
+   fetchUserLikes();
+
+    if (res.status === 500) {
+      const data = await res.json();
+      toast.success("Liked");
+      console.log(data);
+      fetchUserLikes();
+    }
+  }
+
+  const unlikepost = async (x) => {
+    const res = await fetch("http://localhost:8000/likes/delete/"+ x, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === 200) {
+      const data = await res.json();
+      toast.success(`Post disliked`);
+      console.log(data);
+      fetchUserLikes();
+    }
+  }
+
+   
+
+
+
+
+
+
 
 
 // const [Likes, setLikes] = useState(0);
@@ -110,16 +168,17 @@ return <img width={35} height={35} className=' rounded-circle' src={"http://loca
    }
  }
 
+//display posts of followed users only
+ 
 
- let post2=[];
+  
 
 
 
 if(!LoggedIn)
 return<Home/>
 
-
-//to display posts of only followed users
+let post2=[]
 post2 = post.filter((posts) => {
   
   for(let i = 0; i<followed.length; i++){
@@ -131,11 +190,13 @@ post2 = post.filter((posts) => {
 return false;
 })
 
-//console.log(post2);
 
 
 
 const displayPost = ()=>{
+
+  
+
   if(post2.length===0)  return <h1 className='text-center text-white '>Hello {currentUser.username}, you feed is empty <div className='fs-3'>
    <p className='fw-light text-muted'>You feed displays latest posts from the people you follow. Search for users 
      <Link to="/search" className=' text-primary fw-bold mx-1' title="click">
@@ -186,8 +247,8 @@ const displayPost = ()=>{
           </div>
           
            <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
-           <form onSubmit={likeform.handleSubmit}>
-            <button type='submit' className='btn btn-ouline-secondary w-15' 
+           {/* <form onSubmit={likeform.handleSubmit}> */}
+            {/* <button type='submit' className='btn btn-ouline-secondary w-15' 
            onChange={likeform.handleChange}
            values={likeform.values.postId}
              onClick={()=> { handleLikeClick((posts._id) )}} 
@@ -195,53 +256,54 @@ const displayPost = ()=>{
                 displaylikes(posts._id)
               } 
              
-              </button>{posts.likes || 0}
-           </form>
+              </button>{posts.likes || 0} */}
+              <div>{like(posts._id)}</div>
+           {/* </form> */}
            </div>
            
       ))
 }
 }
-const displaylikes = (postId)=>{
-  if(!check(postId)) 
-  return <i className="fa-regular fa-heart"></i>
-  else return <i className="fa-solid fa-heart" style={{color:'red'}}></i>
-}
+// const displaylikes = (postId)=>{
+//   if(!check(postId)) 
+//   return <i className="fa-regular fa-heart"></i>
+//   else return <i className="fa-solid fa-heart" style={{color:'red'}}></i>
+// }
 
-//to make sure that each user can like each post once only
-const handleLikeClick = (postId) => {
-  {likeform.values.postId = postId}
-  console.log(postId);
-  if(!check(postId)){
-    fetch(`http://localhost:8000/post/${postId}/likes`, {
-      method: 'PUT',
-  })
-  .then(res => res.json())
-  .then(data => {
-      setpost(prevlikes => prevlikes.map(post => (post._id === postId ? data : post)))
-      toast.success('Post Liked Successfully')
+// //to make sure that each user can like each post once only
+// const handleLikeClick = (postId) => {
+//   {likeform.values.postId = postId}
+//   console.log(postId);
+//   if(!check(postId)){
+//     fetch(`http://localhost:8000/post/${postId}/likes`, {
+//       method: 'PUT',
+//   })
+//   .then(res => res.json())
+//   .then(data => {
+//       setpost(prevlikes => prevlikes.map(post => (post._id === postId ? data : post)))
+//       toast.success('Post Liked Successfully')
 
-  })
-  .catch(err => {
-      console.error(err);
-  })
-  }
+//   })
+//   .catch(err => {
+//       console.error(err);
+//   })
+//   }
 
   
-  else{
-    toast.error('Post Already Liked')
-  }
+//   else{
+//     toast.error('Post Already Liked')
+//   }
   
-};
+// };
 
-const check = (postId) => {
-  for(let i = 0; i<Tlist.length; i++){
-      if(Tlist[i].userId === currentUser._id && Tlist[i].postId === postId){
-          return true;
-           }
-  }
-  return false;
-}
+// const check = (postId) => {
+//   for(let i = 0; i<Tlist.length; i++){
+//       if(Tlist[i].userId === currentUser._id && Tlist[i].postId === postId){
+//           return true;
+//            }
+//   }
+//   return false;
+// }
 
 //console.log(check(post._id) );
 
