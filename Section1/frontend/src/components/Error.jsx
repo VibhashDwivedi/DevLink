@@ -10,7 +10,7 @@ const Error = () => {
  return<Home/>
 
   return (
-    <div>
+    <div className='create-post-body vh-100'>
  <Header/>
   <div class="container py-md-5 container--narrow">
         <div class="text-center">

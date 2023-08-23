@@ -6,11 +6,33 @@ import { useFormik } from 'formik';
 
 const UserProfile = () => {
 
+
+  const [currenUser, setcurrenUser] = useState(
+    JSON.parse(sessionStorage.getItem("user"))
+  )
     const {username} = useParams();
     const[user, setuser] = useState([]);
     const[post, setpost] = useState([]);
-
-
+    const[followed,setfollowed]=useState(false);
+     
+    const fetchFollowData = async () => {
+      const res = await fetch("http://localhost:8000/follow/getall", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      if (res.status === 200) {
+        const data = await res.json();
+        //console.log(data);
+        setfollowed(data);
+      }
+    }
+    useEffect(() => {
+      fetchFollowData();
+    }, [followed]);
+    
     
 
     const fetchUserData = async () => {
@@ -59,6 +81,27 @@ console.log(user._id);
         console.log(count);
         return count;
         }
+
+        const countFollowers = () => {
+          let count = 0;
+          for(let i = 0; i<followed.length; i++){
+            if(followed[i].following === user.username ){
+                count++;
+                 }
+                }
+        return count;
+        }
+        
+        const countFollowing = () => {
+          let count = 0;
+          for(let i = 0; i<followed.length; i++){
+            if(followed[i].userId === user._id ){
+                count++;
+                 }
+                }
+        return count;
+        }
+
 
         const displayPost = () => {
             //display posts of curentuser
@@ -119,7 +162,63 @@ console.log(user._id);
              }
            }
 
-
+           const follow = (x) => {
+            if (followed.length > 0) {
+              const result = followed.filter((user) => {
+                return user.following === x;
+              });
+              if (result.length > 0) {
+                return <button className="btn btn-secondary" onClick={() => unfollow(x)}><i class="fa-solid fa-user-minus mx-1"></i>  Following</button>
+              } else {
+                return <button className="btn btn-primary" onClick={() => followUser(x)}><i class="fa-solid fa-user-plus mx-1"></i>  Follow</button>
+              }
+            } else {
+              return <button className="btn btn-primary" onClick={() => followUser(x)}><i class="fa-solid fa-user-plus mx-1"></i>  Follow</button>
+            }
+          }
+        
+            const followUser = async (x) => {
+              const res = await fetch("http://localhost:8000/follow/add", 
+                {method:'POST',
+                body:JSON.stringify(
+                  {
+                    "following":x,
+                    "userId":currenUser._id
+                  }
+                ),
+                headers:{
+                 'Content-Type': 'application/json'
+                } ,
+               
+               
+             });
+        
+             toast.success("Followed");
+          
+              if (res.status === 500) {
+                const data = await res.json();
+                toast.success("Followed");
+                console.log(data);
+                fetchFollowData();
+              }
+            }
+        
+            const unfollow = async (x) => {
+              const res = await fetch("http://localhost:8000/follow/delete/"+ x, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+          
+              if (res.status === 200) {
+                const data = await res.json();
+                toast.success("Unfollowed");
+                console.log(data);
+                fetchFollowData();
+              }
+            }
+        
 
 
 
@@ -130,24 +229,30 @@ console.log(user._id);
         <div className="container py-md-5 container--narrow card-header">
           <div className="card">
             <div className="card-header">
-            <h2 >
-  {/* <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+user.avatar} alt="" /> */}
-    {displayprofile()}
-    {user.username}
-  </h2>
+              <div className="d-flex">
+              <h2 >
+ 
+ {displayprofile()}
+ {user.username}
+</h2>
+<div className='ms-auto'>{follow(user.username)}</div>
+              </div>
+           
 
-  <p className=' text-muted ' style={{marginTop:'-20px' , marginLeft:'38px'}}>{user.profile}</p>
+  <p className=' text-muted ' style={{marginTop:'-18px' , marginLeft:'63px'}}>{user.profile}</p>
   
   <div className="profile-nav nav nav-tabs pt-2 mb-4">
 <button className="btn btn-dark">
 Posts : {countPost()}
 </button>
 <button className="btn btn-dark mx-4">
-Followers : 3
+Followers : {countFollowers()}
 </button>
 <button className="btn btn-dark">
-Following : 3
+Following : {countFollowing()}
 </button>
+
+
 
             </div>
           </div>

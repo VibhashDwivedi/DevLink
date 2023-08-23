@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Header from './Header'
 import Home from './Home';
 import useUserContext from '../UserContext';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import pic from '../images/searchUser.webp'
 import { toast } from 'react-hot-toast';
 
@@ -62,7 +62,8 @@ const Search = () => {
 
     if (keyword !== "") {
       const results = User.filter((user) => {
-        return user.username.toLowerCase().startsWith(keyword.toLowerCase());
+        return user.username.toLowerCase().startsWith(keyword.toLowerCase())||
+        user.profile.toLowerCase().startsWith(keyword.toLowerCase());
       });
       setsearch(results);
     } else {
@@ -113,7 +114,7 @@ const Search = () => {
        
      });
 
-     toast.success("Followed");
+     toast.success(`You are now following ${x}`);
   
       if (res.status === 500) {
         const data = await res.json();
@@ -133,7 +134,7 @@ const Search = () => {
   
       if (res.status === 200) {
         const data = await res.json();
-        toast.success("Unfollowed");
+        toast.success(`You Unfollowed ${x}`);
         console.log(data);
         fetchFollowData();
       }
@@ -156,7 +157,9 @@ const displayTournament = () => {
           <div className="col-md-4 col-10 mx-auto" key={user._id}>
             <div className="card my-3">
               <div className="card-body">
-               {displayprofile(user.avatar)}
+              <NavLink to={'/userprofile/'+user.username}>
+                 {displayprofile(user.avatar)}
+                 </NavLink> 
                 <h5 className="card-title">{user.username}</h5>
                 <p className="card-text">{user.profile}</p>
              <div className="d-flex">
@@ -195,8 +198,11 @@ const displayTournament = () => {
         
         <div className="container  my-3 ">
                 <p className='display-2 text-center fw-bold text-white'>Search Users</p>
-               <div className="d-flex" >
-                 <input type="text" className='form-control w-75 m-auto ' onChange={filterTournament}   / >
+               <div className="d-flex " >
+              
+                 <input type="text" className='form-control w-75 m-auto ' onChange={filterTournament} 
+                  placeholder="Search Users by username or profile" aria-label="Search" />
+                  
                   </div>
                   </div>
 

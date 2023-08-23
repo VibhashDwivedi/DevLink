@@ -136,8 +136,10 @@ return false;
 
 
 const displayPost = ()=>{
-  if(post2.length===0)  return <h1 className='text-center text-white '>No Posts Found <div className='fs-3'>
-    <Link to="/search" className='text-decoration-none text-info' title="click">Follow more Users here</Link></div>
+  if(post2.length===0)  return <h1 className='text-center text-white '>Hello {currentUser.username}, you feed is empty <div className='fs-3'>
+   <p className='fw-light text-muted'>You feed displays latest posts from the people you follow. Search for users 
+     <Link to="/search" className=' text-primary fw-bold mx-1' title="click">
+      here</Link> </p></div>
   </h1>
   else{
    // to sort posts by date and time
@@ -152,7 +154,7 @@ const displayPost = ()=>{
     //to display posts of only followed users
     
 
-      return post2.map((posts) =>(
+      return   post2.map((posts) =>(
 
         //to display posts of only followed users
         
