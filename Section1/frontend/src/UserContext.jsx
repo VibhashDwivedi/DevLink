@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const { useContext } = require("react");
 const { useState } = require("react");
 const { createContext } = require("react");
@@ -20,6 +22,12 @@ const { createContext } = require("react");
         sessionStorage.removeItem('user');
         setcurrentUser(null);
         setLoggedIn(false);
+        Swal.fire({
+            icon: 'success',
+            title: 'Logged out successfully',
+            text:'Thank you for visiting us!',
+           
+          })
      }
 
     return <UserContext.Provider value={{ LoggedIn, setLoggedIn, logout}}>
