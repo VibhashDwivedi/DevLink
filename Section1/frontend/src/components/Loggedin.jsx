@@ -134,7 +134,7 @@ const like = (x) => {
   }
 
   const unlikepost = async (x) => {
-    const res = await fetch("http://localhost:8000/likes/delete/"+ x, {
+    const res = await fetch("http://localhost:8000/likes/delete/"+ currentUser.username+"/"+x, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const like = (x) => {
 
     if (res.status === 200) {
       const data = await res.json();
-      toast.success(`Post disliked`);
+      toast.success(`Post unliked`);
       console.log(data);
       fetchUserLikes();
     }
@@ -198,8 +198,8 @@ const displayPost = ()=>{
   
 
   if(post2.length===0)  return <h1 className='text-center text-white '>Hello {currentUser.username}, you feed is empty <div className='fs-3'>
-   <p className='fw-light text-muted'>You feed displays latest posts from the people you follow. Search for users 
-     <Link to="/search" className=' text-primary fw-bold mx-1' title="click">
+   <p className='fw-light text-light'>You feed displays latest posts from the people you follow. Search for users 
+     <Link to="/search" className=' text-white fw-bold mx-1' title="click">
       here</Link> </p></div>
   </h1>
   else{
@@ -315,7 +315,7 @@ const displayPost = ()=>{
     <div className='create-post-body vh-200'>
  <Header/>
   <div className="container py-md-5 container--narrow">
-  <p className='display-6 text-center  text-white'>The Latest from those you follow</p>
+  <p className='display-6  text-center text-white title2'>The Latest from those you follow</p>
 
  
     

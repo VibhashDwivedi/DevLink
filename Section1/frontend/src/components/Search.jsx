@@ -176,7 +176,7 @@ const displayTournament = () => {
     } else {
       return (
         <div className="container">
-          <h1 className='text-center'>No User Found</h1>
+          <h1 className='text-center text-white'>No User Found</h1>
         </div>
       );
     }
@@ -194,20 +194,28 @@ const displayTournament = () => {
 
   return (
     <div className='create-post-body vh-200'>
-        <Header />
+      <div className="position-fixed w-100  z-1 top-0"><Header />
+      
+      </div>
         
-        <div className="container  my-3 ">
-                <p className='display-2 text-center fw-bold text-white'>Search Users</p>
-               <div className="d-flex " >
+        
+       
+                
+      <div className="container   my-3 ">
+          <div className="position-reative">
+          <p className='display-2 text-center fw-bold text-white mt-5 pt-5 pb-2'>Search Users</p>
+          <div className="d-flex " >
               
-                 <input type="text" className='form-control w-75 m-auto ' onChange={filterTournament} 
-                  placeholder="Search Users by username or profile" aria-label="Search" />
-                  
-                  </div>
-                  </div>
+              <input type="text" className='form-control w-75 m-auto mb-2' onChange={filterTournament} 
+               placeholder="Search Users by username or profile" aria-label="Search" />
+               
+               </div>
+               </div>
+          </div>
+      
 
-                  <div className='container'  >
-       <div className='row mt-3'  > {displayTournament()}</div>
+                  <div className='container'    >
+       <div className='row mt-3' > {displayTournament()}</div>
         </div>
 
     </div>

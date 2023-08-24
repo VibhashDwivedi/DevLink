@@ -176,7 +176,7 @@ console.log(user._id);
           }
         
           const unlikepost = async (x) => {
-            const res = await fetch("http://localhost:8000/likes/delete/"+ x, {
+            const res = await fetch("http://localhost:8000/likes/delete/"+currentUser.username+'/'+ x, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -260,7 +260,7 @@ console.log(user._id);
            const follow = (x) => {
             if (followed.length > 0) {
               const result = followed.filter((user) => {
-                return user.following === x;
+                return user.following === x && user.userId === currentUser._id;
               });
               if (result.length > 0) {
                 return <button className="btn btn-secondary" onClick={() => unfollow(x)}><i class="fa-solid fa-user-minus mx-1"></i>  Following</button>
@@ -288,7 +288,7 @@ console.log(user._id);
                
              });
         
-             toast.success("Followed");
+             toast.success(`You are now following ${user.username}`);
           
               if (res.status === 500) {
                 const data = await res.json();
@@ -308,7 +308,7 @@ console.log(user._id);
           
               if (res.status === 200) {
                 const data = await res.json();
-                toast.success("Unfollowed");
+                toast.success(`You Unfollowed ${user.username}`);
                 console.log(data);
                 fetchFollowData();
               }

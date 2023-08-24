@@ -45,7 +45,7 @@ button.login:hover{
 }
 
 .header-bar2{
-  background-image: linear-gradient(100deg, black,rgb(30, 1, 54));
+  background-image: linear-gradient(100deg, rgb(0, 0, 0),rgb(30, 1, 54));
 }
 
 .avatar-tiny{

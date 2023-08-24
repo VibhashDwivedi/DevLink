@@ -30,12 +30,12 @@ router.get('/getall',(req,res)=>{
     });
 });
 
-//delete by post id
-
-router.delete('/delete/:postId',(req,res)=>{
+//delete by post id and username
+router.delete('/delete/:username/:postId',(req,res)=>{
+    const username = req.params.username;
     const postId = req.params.postId;
     //delete by post id
-    Model.findOneAndDelete({postId:postId})
+    Model.findOneAndDelete({username:username,postId:postId})
     .then((result) => {
         res.json(result);
         console.log(result);
@@ -44,6 +44,21 @@ router.delete('/delete/:postId',(req,res)=>{
         res.status(500).json();
     });
 });
+
+
+
+// router.delete('/delete/:username',(req,res)=>{
+//     const username = req.params.username;
+//     //delete by post id
+//     Model.findOneAndDelete({username:username})
+//     .then((result) => {
+//         res.json(result);
+//         console.log(result);
+//     }).catch((err) => {
+//         console.log(err);
+//         res.status(500).json();
+//     });
+// });
 
 
 module.exports = router;    

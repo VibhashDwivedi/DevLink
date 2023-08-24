@@ -85,9 +85,9 @@ const {LoggedIn, logout} = useUserContext();
       <header className="header-bar2 mb-3">
         <div className="container d-flex flex-column flex-md-row align-items-center p-3">
         <h3 className="my-0 mr-md-auto fw-bold ">
-            <a href="/" className="text-white text-decoration-none">
+            <div className="text-white text-decoration-none">
               DevLink
-            </a>
+            </div>
           </h3>
           <div className="flex-row my-3 my-md-0 ms-auto">
           <Link to="/feed"
@@ -137,7 +137,7 @@ const {LoggedIn, logout} = useUserContext();
             </div>
 
             <div className="form-group">
-                <label htmlFor="post-body" className=" text-light mb-1"><small>Content</small></label>
+                <label htmlFor="post-body" className=" text-light mb-1 fs-4 fw-bold">Content</label>
                 <p  className='error-label'>{postForm.touched.content? postForm.errors.content :''}</p>
                 <textarea name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
