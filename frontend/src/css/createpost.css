@@ -22,6 +22,9 @@
     font-size:2rem;
     font-weight: 500;
     border: none;
+    
+    background: linear-gradient(90deg, #e6ba5d 0%, #4bcacc 100%);
+    
 }
 
 textarea.tall-textarea{
@@ -33,6 +36,9 @@ textarea.tall-textarea{
     line-height:1.75;
     color: #292929;
     border: none;
+    
+    background: linear-gradient(90deg, #ddbe7b 0%, #22C1C3 100%);
+    border-radius: 5px 40px 5px;
 }
 
 @media (min-width: 768px){
@@ -167,11 +173,18 @@ textarea.tall-textarea{
 }
 
 .card-header-bg{
-    background-image: linear-gradient(to right, #044a96ce, #6c757d88);
+    /* background-image: linear-gradient(to right, #044a96ce, #6c757d88); */
+    background: linear-gradient(270deg, #efd5ff 0%, #eb9360 100%);
+   
 }
 
 .chat-form{
     /* items at bottom */
     margin-bottom: 0;
 
+}
+
+.design{
+    border-radius: 5px 25px 5px;
+    background-color: rgb(243, 231, 209);
 }

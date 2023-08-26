@@ -124,15 +124,15 @@ const {LoggedIn, logout} = useUserContext();
   <div className="container py-md-3 container--narrow">
         <form action="#" method="post" onSubmit={postForm.handleSubmit}>
             <div className="form-group">
-                <label htmlFor="post-title" className="text-light mb-1 fw-bold fs-3 title">Title</label>
+                <label htmlFor="post-title" className="text-light mb-1 fw-bold fs-3 title2">Title</label>
                 <p  className='error-label'>{postForm.touched.title? postForm.errors.title :''}</p>
-                <input  name="title" id="post-title" className="form-control form-control-lg form-control-title" type="text" autoComplete="off"  onChange={postForm.handleChange} value={postForm.values.title}/>
+                <input placeholder='Title here' name="title" id="post-title" className="form-control form-control-lg form-control-title" type="text" autoComplete="off"  onChange={postForm.handleChange} value={postForm.values.title}/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="post-body" className=" text-light mb-1 fs-4 fw-bold">Content</label>
                 <p  className='error-label'>{postForm.touched.content? postForm.errors.content :''}</p>
-                <textarea name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
+                <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
             <button type='submit' className="btn btn-info mt-2">Publish Post</button>

@@ -148,7 +148,7 @@ const EditPost = () => {
   <div className="container py-md-3 container--narrow">
         <form  onSubmit={updateForm.handleSubmit}>
             <div className="">
-                <label htmlFor="" className="text-light mb-1 fw-bold fs-3 title">Title</label>
+                <label htmlFor="" className="text-light mb-1 fw-bold fs-3 title2">Title</label>
                 <p  className='error-label'>{updateForm.touched.title? updateForm.errors.title :''}</p>
                 <input   name="title" id="" className="form-control form-control-lg form-control-title" type="text"   onChange={updateForm.handleChange} value={updateForm.values.title}/>
             </div>
@@ -156,7 +156,7 @@ const EditPost = () => {
             <div className="">
                 <label htmlFor="" className=" text-light mb-1 fs-5 fw-bold">Content</label>
                 <p  className='error-label'>{updateForm.touched.content? updateForm.errors.content :''}</p>
-                <textarea name="content" id="" className="form-control tall-textarea form-control-content" type="text"  onChange={updateForm.handleChange} value={updateForm.values.content}></textarea>
+                <textarea name="content" id="" className="form-control tall-textarea form-control-content body-content" type="text"  onChange={updateForm.handleChange} value={updateForm.values.content}></textarea>
             </div>
 
             <button type='submit' className="btn btn-info mt-2">Update Post</button>

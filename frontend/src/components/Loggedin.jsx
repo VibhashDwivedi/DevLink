@@ -220,8 +220,8 @@ const displayPost = ()=>{
         //to display posts of only followed users
         
 
-          <div className='card shadow-lg mt-4 p-2'  style={{border:'none', backgroundColor:'wheat'}}>
-          <div className='card-header rounded-2 card-header-bg  '>
+          <div className='card shadow-lg mt-4 p-2 design'  style={{border:'none'}}>
+          <div className='card-header rounded-3 card-header-bg design2 '>
           <div className="d-flex">
           <Link  className='text-decoration-none' to={'/userprofile/'+posts.username}>
           {/* <img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/> */}
