@@ -30,6 +30,18 @@ router.get('/getall',(req,res)=>{
     });
 });
 
+//get by userId
+router.get('/getbyuserid/:userId',(req,res)=>{
+    console.log(req.params.userId);
+    Model.find({userId:req.params.userId})
+    .then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json();
+    });
+    });
+
 //delete by post id
 //delete by username folllowing
 router.delete('/delete/:following',(req,res)=>{

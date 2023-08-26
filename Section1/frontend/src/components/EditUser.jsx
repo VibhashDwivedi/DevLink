@@ -1,45 +1,53 @@
-import React, { useState } from 'react'
-import { useFormik} from 'formik'
-import Swal from 'sweetalert2'
-import * as Yup from 'yup'
-import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
-import Loggedin from './Loggedin'
-import useUserContext from '../UserContext'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import useUserContext from '../UserContext';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import Swal from 'sweetalert2';
+import Home from './Home';
+import Header from './Header';
 
 
+const EditUser = () => {
+    const navigate = useNavigate();
+    const {LoggedIn} = useUserContext();
+
+    const [currentUser, setCurrentUser] = useState(
+      JSON.parse(sessionStorage.getItem("user"))
+    );
+
+    const [selImage, setselImage] = useState(currentUser.avatar)
+    const fetchUserData = async () => {
+        const res = await fetch("http://localhost:8000/user/getbyid/"+currentUser._id);
+        console.log(res.status);
+
+        const data = await res.json();
+        console.log(data);
+    };
+
+    useEffect(()=>{
+        fetchUserData();
+    }, [currentUser]);
+   
+    
+  
+    const userNameRegex = /^[a-zA-Z0-9_-]*$/;
 
 
-
-const Home = () => {
-
-const{setLoggedIn} = useUserContext();
-  const navigate = useNavigate();
-  const [selImage, setselImage] = useState('');
-
- const userNameRegex = /^[a-zA-Z0-9_-]*$/;
-
-    const loginSchema = Yup.object().shape({
-        username: Yup.string()
-        .min(5, 'Too Short!')
-        .max(50, 'Too Long!')
-        .required('Required'),
-        password: Yup.string().required('Required'),
-      });
-
-      const SignupSchema = Yup.object().shape({
+    const SignupSchema = Yup.object().shape({
         username: Yup.string()
           .min(5, 'Too Short!')
           .max(50, 'Too Long!')
           .required('Required')
         .matches(userNameRegex, 'Username can only contain alphanumeric characters, underscores and hyphens')
           .test("username", "Username already registered", function (username) {
-            return checkAvailabilityUsername(username);}
+            return username===currentUser.username? true: checkAvailabilityUsername(username);}
             ),
           profile:Yup.string().required('Required'),
         email: Yup.string().email('Invalid email').required('Required')
         //validate if email is present
         .test("email", "Email already registered", function (email) {
-          return checkAvailabilityEmail(email);}
+         return  email===currentUser.email? true :checkAvailabilityEmail(email);}
           ),
         password: Yup.string().min(8,'Too Short!').required('Required'),
       });
@@ -78,208 +86,90 @@ const{setLoggedIn} = useUserContext();
         return false;
       }
     }
-
-
-
-    const loginForm = useFormik({
-        initialValues:{
-            username: '',
-          password: ''
-    },
-    onSubmit : async (values) => {
-
-      
-      console.log(values);
-      
-      //submit values to backend
-      const res = await fetch("http://localhost:8000/user/authenticate",
-      {method:'POST',
-       body:JSON.stringify(values),
-       headers:{
-        'Content-Type': 'application/json'
-       } ,
-  
-      
-    });
+   
     
-    console.log(res.status);
-    if(res.status === 200){
-      Swal.fire({
-        icon: 'success',
-        title:'Login Successful'
-      })
-     
-      const data = await res.json();
-      sessionStorage.setItem('user',JSON.stringify(data));
-     // console.log(data.username);
-      setLoggedIn(true);
-      navigate('/feed');
-
-
-    }else if(res.status === 401){
-      Swal.fire('Invalid Credentials','Invalid Email or Password.','warning')
-    }
-    else{
-      Swal.fire({
-        icon:'error',
-        title: 'Oops',
-        text: 'Some error occured'
-    });
-    }
-    
-    
-    },
-      validationSchema: loginSchema
-});
-
-
-//function to show password
-
-
     const signupForm = useFormik({
-        initialValues: {
-          username: '',
-          profile:'',
-          email: '',
-          password: '',
-        },
-        onSubmit: async (values) => {
-          values.avatar= selImage;
-          console.log(values);
-           //sending request to backend
-         const res = await fetch("http://localhost:8000/user/add",
-         {method:'POST',
-          body:JSON.stringify(values),
-          headers:{
-           'Content-Type': 'application/json'
-          } ,
-   
-         
-       });
-         
-        console.log(res.status);
-        if(res.status === 200){
-         Swal.fire({
-           icon:'success',
-           title: 'Signup Success',
-           text: 'Now Login To Continue'
-         });
-        //reset signup form
-
-        signupForm.resetForm();
-       }else{
-         Swal.fire({
-           icon:'error',
-           title: 'Oops',
-           text: 'Some error occured'
-       });
-   
-   
-         }
-   
+      initialValues: {
+        username: currentUser.username,
+        profile:currentUser.profile,
+        email: currentUser.email,
+        password: currentUser.password,
+        avatar: currentUser.avatar
+      },
+  
+      onSubmit: async (values) => {
+        values.avatar= selImage;
+         console.log(values);
+          //sending request to backend
+        const res = await fetch("http://localhost:8000/user/update/"+currentUser._id,
+        {method:'PUT',
+         body:JSON.stringify(values),
+         headers:{
+          'Content-Type': 'application/json'
+         } ,
+  
         
-   
-   } ,
-   validationSchema : SignupSchema,
-   //validateOnChange : false,
+      });
+        
+       console.log(res.status);
+       if(res.status === 200){
+        Swal.fire({
+          icon:'success',
+          title: 'Update Successful',
         });
-
-
-        const uploadFile=  async(e)=>{
-          let file = e.target.files[0];
-          setselImage(file.name);
-          const fd = new FormData();
-          fd.append('myfile', file);
-          const res =await fetch ('http://localhost:8000/util/uploadfile',{
-            method:'POST',
-            body :fd
-          });
+      
         
-          console.log(res.status);
-        }
+      const data = await res.json();
+      //setcurrentUser(data)
+      sessionStorage.setItem('user',JSON.stringify(data));
 
-  return (
-    <div className='body'>
+      navigate('/myprofile');
+      }else{
+        Swal.fire({
+          icon:'error',
+          title: 'Oops',
+          text: 'Some error occured'
+      });
+  
+  
+        }
+  
+       
+  
+  } ,
+  validationSchema : SignupSchema
+    });
+
+    const uploadFile=  async(e)=>{
+        let file = e.target.files[0];
+        if(file.name==='')
+        setselImage(currentUser.avatar)
+        else
+        setselImage(file.name);
+        const fd = new FormData();
+        fd.append('myfile', file);
+        const res =await fetch ('http://localhost:8000/util/uploadfile',{
+          method:'PUT',
+          body :fd
+        });
+      
+        console.log(res.status);
+      }
 
    
+      if(!LoggedIn)
+      return <Home/>
+      
 
-
-
-
-
-  <header className="header-bar mb-3">
-    <div className="container d-flex flex-column flex-md-row align-items-center p-3">
-      <h3 className="my-0 mr-md-auto fw-bold ">
-        <a href="/" className="text-white text-decoration-none">
-          DevLink
-        </a>
-      </h3>
-      <form action="#" method="post" className="mb-0 pt-2 pt-md-0 ms-auto" onSubmit={loginForm.handleSubmit}>
-        <div className="row align-items-center ">
-          <div className="col-md mr-0 pr-md-0 mb-3 mb-md-0">
-            <input
-              name="username"
-              className="form-control form-control-sm input-dark"
-              type="text"
-              placeholder="Username"
-              autoComplete=""
-              onChange={loginForm.handleChange}
-              value={loginForm.values.username}
-            />
-          </div>
-          <div className="col-md mr-0 pr-md-0 mb-3 mb-md-0 d-flex">
-            <input
-              name="password"
-              className="form-control form-control-sm input-dark"
-              id='typepass'
-              type="password"
-              placeholder="Password"
-              onChange={loginForm.handleChange}
-              value={loginForm.values.password}
-            />
-            <i class="fa-solid fa-eye"   style={{marginLeft:'-30px',marginTop:'10px'}}
-             onClick={
-
-function(){
-  var x = document.getElementById("typepass");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-
-}
-}></i>
-             
-            </div>
-           
-          <div className="col-md-auto ">
-            <button
-            type='submit'
-              className="btn btn-primary btn-sm login"
-              style={{ width: "100%" }}
-            >
-              Login
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </header>
-  {/* body starts here*/}
-  <div className="container  ">
-    <div className="row align-items-center">
-      <div className="col-lg-7 mb-lg-5">
-        <h2 className="display-4 text-light">Space for Developers to Link👨‍💻!!</h2>
-        <p className=" fs-5  description">
-          Enjoy post and tweets on new technologies by developers for
-          developers!!
-        </p>
-      </div>
-      <div className="col-lg-5 pl-lg-5 mb-3 py-lg-5">
-        <div className="card p-5 pt-3 shadow-lg signup-card" style={{border:'none'}}>
+    
+   
+    return (
+        <div className='create-post-body '>
+        <div style={{position:'fixed'}} className='w-100'><Header /></div>
+      <div className="d-flex align-items-center justify-content-center ">
+      <div className="card p-5 pt-3 shadow-lg " style={{border:'none', marginTop:'100px'}}>
             <div className="card-body">
-            <i className="fa-solid fa-lock fa-2x d-block text-center mb-3"></i> 
+           <div className='text-center fs-3 fw-bold'>Edit Details</div>
             <form action="#" method="POST" id="registration-form" onSubmit={signupForm.handleSubmit}>
           <div className="form-group">
             {/* <label htmlFor="username-register" className="text-muted mb-1">
@@ -400,22 +290,19 @@ function(){
          <div className="d-flex justify-content-center">
          <button
             type="submit"
-            className="py-2 mt-4  btn btn-lg btn-info   me-4"
+            className="py-2 mt-4 btn btn-lg btn-info   m-auto"
           >
-            Sign up for DevLink
+            Update Details 
           </button>
          </div>
          
         </form>
             </div>
         </div>
-        
-      </div>
+     
     </div>
-  </div>
-
-</div>
-  )
+    </div>
+    )
 }
 
-export default Home
+export default EditUser

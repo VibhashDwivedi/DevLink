@@ -48,6 +48,16 @@ router.get('/getbyid/:id',(req,res)=>{
   }
   );
 
+  router.put('/update/:id',(req,res)=>{
+    Model.findByIdAndUpdate(req.params.id, req.body,{new:true})
+    .then((result) => {
+        res.json(result);
+    }).catch((err) => {
+        console.log(err);
+        res.status(500).json();
+    });
+    })
+
 
 router.post('/authenticate',(req,res)=>{
   Model.findOne(req.body)
@@ -106,6 +116,20 @@ router.get('/checkusername/:username',(req,res)=>{
       res.status(500).json();
   });
 });
+
+//delete a user by id
+router.delete('/delete/:id',(req,res)=>{
+  Model.findByIdAndDelete(req.params.id)
+  .then((result) => {
+      res.json(result);
+  }).catch((err) => {
+      console.log(err);
+      res.status(500).json();
+  });
+  }
+  );
+
+  //delete a user by username
 
 
 module.exports = router;

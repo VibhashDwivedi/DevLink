@@ -5,6 +5,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import Home from './Home'
 import useUserContext from '../UserContext'
 import { toast } from 'react-hot-toast'
+import Swal from 'sweetalert2'
 const ProfilePost = () => {
  
   const navigate = useNavigate();
@@ -18,7 +19,8 @@ const ProfilePost = () => {
   const [Tlist, setTlist] = useState([]);
 const [Likes, setLikes] = useState([]);
   const [followed,setfollowed]=useState([]);
-  
+  const[myfollowers,setmyfollowers]=useState([]);
+ 
   const fetchFollowData = async () => {
     const res = await fetch("http://localhost:8000/follow/getall", {
       method: "GET",
@@ -190,9 +192,82 @@ const displayPost = () => {
 
 
 
+
+
+
+
+
+//delete user
+const deleteuser = async  (id) =>{
+  console.log(id);
+  //pass alert before deleting
+  const c =  window.confirm('Are you sure you want to delete your account? ');
+  if(c===true ){
+  const res = await  fetch('http://localhost:8000/user/delete/'+id, {method:'DELETE'});
+  if(res.status === 200){
+      fetchUserData1();
+      Swal.fire({
+        icon: 'success',
+        title: 'Account deleted successfully',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      navigate('/home');
+  }
+  else{
+    Swal.fire({
+      icon: 'error',
+      title: 'Account not deleted',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
+}
+else
+{
+  Swal.fire({
+    icon: 'error',
+    title: 'Account not deleted',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+}
+
   
    
+const followed2 = [];
+for(let i = 0; i<followed.length; i++){
+  if(followed[i].following === currentUser.username ){
+      followed2.push(followed[i].userId);
+        }
+        }
+        console.log(followed2);
 
+//fetch follow data by userId
+
+
+
+
+//display  myfollowers 
+const displayFollowers = () => {
+  
+  return myfollowers.map((follow) => {
+    return (
+      <div className="card shadow-lg mt-4 p-2" style={{border:'none', backgroundColor:'wheat'}}>
+      <div className="d-flex">
+      <div className=" text-black fw-bold mx-2  fs-4">{follow.username}</div>
+      
+      <div className=' text-black mx-3 pb-2 fw-light  '>{follow.profile}</div>
+      </div>
+      </div>
+    )
+  })
+}
+
+    
+
+    
 
 
 
@@ -216,6 +291,8 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://
  }
 
  
+
+
 
 
 
@@ -246,21 +323,14 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://
             </Link>
             <Link to="/search"
               
-              className="text-white mr-2 header-search-icon"
+              className="text-white me-3 header-search-icon"
               title="Search"
               data-toggle="tooltip"
               data-placement="bottom"
             >
               <i className="fas fa-search " />
             </Link>
-            <span
-              className="text-white mr-2 header-chat-icon"
-              title="Chat"
-              data-toggle="tooltip"
-              data-placement="bottom"
-            >
-              <NavLink to="/profilepostchat"><i className="fas fa-comment mx-4 text-white" /></NavLink>
-            </span>
+           
             <Link to='/myprofile' className="mr-2">
            {displayprofile()}
             </Link>
@@ -277,11 +347,22 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://
         <div className="container py-md-5 container--narrow card-header">
           <div className="card">
             <div className="card-header">
-            <h2 >
+           
+        <div className="d-flex">
+        <h2 >
   {/* <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" /> */}
    {displayprofile2()}
     {currentUser.username}
   </h2>
+  <div className="d-flex ms-auto">
+    <Link to='/edituser'>
+  <button className=' btn h-75 btn-primary'>Edit</button></Link>
+  
+  <button className=' ms-2 btn h-75 btn-danger' onClick={()=> {deleteuser(currentUser._id)}}> Delete</button>
+  </div>
+  
+          </div>   
+            
 
   <p className=' text-muted ' style={{marginTop:'-20px' , marginLeft:'58px'}}>{currentUser.profile}</p>
   
@@ -306,6 +387,9 @@ Following : {countFollowing()}
   }
  
 </div>
+
+
+
 
 
 

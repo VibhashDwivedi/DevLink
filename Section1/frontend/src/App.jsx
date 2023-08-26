@@ -6,17 +6,14 @@ import Error from './components/Error';
 import CreatePost from './components/CreatePost';
 
 import ProfilePost from './components/ProfilePost';
-import Chat from './components/Chat';
-import ChatVisible from './components/ChatVisible';
-import CreatePostChat from './components/CreatePostChat';
 
-import ProfilePostChat from './components/ProfilePostChat';
 
 import { Toaster } from 'react-hot-toast';
 import { UserProvider } from './UserContext';
 import Search from './components/Search';
 import EditPost from './components/EditPost';
 import UserProfile from './components/UserProfile';
+import EditUser from './components/EditUser';
 
 
 function App() {
@@ -32,10 +29,9 @@ return (
   <Route path='error' element={<Error/>}></Route>
   <Route path='createpost' element={<CreatePost/>}></Route>
   <Route path='myprofile' element={<ProfilePost/>}></Route>
-  <Route path='profilepostchat' element={<ProfilePostChat/>}></Route>
-  {/* <Route path='chat' element={<Chat/>}></Route> */}
-  <Route path='chatvisible' element={<ChatVisible/>}></Route>
-  <Route path='createpostchat' element={<CreatePostChat/>}></Route>
+ 
+  <Route path='edituser' element={<EditUser/>}></Route>
+
  
   
   <Route path='search' element={<Search/>}></Route>

@@ -45,21 +45,14 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://
              <i class="fa-solid fa-house-user"></i>
             </Link>
             <Link to="/search"
-              className="text-white mr-2 header-search-icon"
+              className="text-white me-3 header-search-icon"
               title="home"
               data-toggle="tooltip"
               data-placement="bottom"
             >
               <i className="fas fa-search " />
             </Link>
-            <span
-              className="text-white mr-2 header-chat-icon"
-              title="Chat"
-              data-toggle="tooltip"
-              data-placement="bottom"
-            >
-              <NavLink to="/chatvisible"><i className="fas fa-comment mx-4 text-white" /></NavLink>
-            </span>
+            
             <Link to='/myprofile' className="mr-2">
             {displayprofile()}
              </Link>
