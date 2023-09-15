@@ -213,7 +213,7 @@ console.log(user._id);
                     
                     return post.map((posts) => {
                       return (
-                        <div className='card shadow-lg mt-4 p-2'  style={{border:'none' , backgroundColor:'wheat'}}>
+                        <div className='card shadow-lg mt-4 p-2'  style={{border:'none' , backgroundColor:'white'}}>
                         {/* <div className='card-header  card-header-bg '> */}
                         {/* <div className="d-flex"><img src={"http://localhost:8000/"+posts.avatar} alt=""   className='rounded-circle'  width={35} height={35}/>
                         <div className="text-black fw-3  mx-2 fs-4">{posts.username}</div> */}
