@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import { useFormik} from 'formik'
 import Swal from 'sweetalert2'
 import * as Yup from 'yup'
-import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
-import Loggedin from './Loggedin'
 import useUserContext from '../UserContext'
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -237,7 +236,7 @@ const{setLoggedIn} = useUserContext();
               onChange={loginForm.handleChange}
               value={loginForm.values.password}
             />
-            <i class="fa-solid fa-eye"   style={{marginLeft:'-30px',marginTop:'10px'}}
+            <i className="fa-solid fa-eye"   style={{marginLeft:'-30px',marginTop:'10px'}}
              onClick={
 
 function(){
@@ -288,7 +287,7 @@ function(){
             <p  className='error-label'>{signupForm.touched.username? signupForm.errors.username :''}</p>
 
            <div className="d-flex">
-           <i class="fa-solid fa-user fa-2x me-3"></i>
+           <i className="fa-solid fa-user fa-2x me-3"></i>
            <input
               name="username"
               id="username-register"
@@ -309,7 +308,7 @@ function(){
             </label> */}
             <p  className='error-label'>{signupForm.touched.profile? signupForm.errors.profile :''}</p>
            <div className="d-flex">
-           <i class="fa-solid fa-user-tie fa-2x me-3"></i>
+           <i className="fa-solid fa-user-tie fa-2x me-3"></i>
            <select
               name="profile"
               id="profile-register"
@@ -338,7 +337,7 @@ function(){
             <p  className='error-label'>{signupForm.touched.email? signupForm.errors.email :''}</p>
            
            <div className="d-flex">
-           <i class="fa-solid fa-envelope fa-2x me-3"></i>
+           <i className="fa-solid fa-envelope fa-2x me-3"></i>
            <input
               name="email"
               id="email-register"
@@ -358,7 +357,7 @@ function(){
             </label> */}
             <p  className='error-label'>{signupForm.touched.password? signupForm.errors.password:''}</p>
            <div className="d-flex">
-           <i class="fa-solid fa-key fa-2x me-3"></i>
+           <i className="fa-solid fa-key fa-2x me-3"></i>
            <input
               name="password"
               id="password-register"
@@ -368,7 +367,7 @@ function(){
               onChange={signupForm.handleChange}
               value={signupForm.values.password}
             />
-             <i class="fa-solid fa-eye px-2" style={{marginLeft:'-35px',marginTop:'10px'}}
+             <i className="fa-solid fa-eye px-2" style={{marginLeft:'-35px',marginTop:'10px'}}
              onClick={
 
 function(){
@@ -387,7 +386,7 @@ function(){
           {/* <label htmlFor="" className='form-label'>Profile Pic</label> */}
 
          <div className="d-flex mt-4">
-         <i class="fa-solid fa-camera fa-2x me-3"></i>
+         <i className="fa-solid fa-camera fa-2x me-3"></i>
          <input
              type="file"
              id=""
