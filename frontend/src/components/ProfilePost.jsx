@@ -370,7 +370,7 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
 <button className="btn btn-dark">
 Posts : {countPost()}
 </button>
-<button className="btn btn-dark mx-4">
+<button className="btn btn-dark mx-3">
 Followers : {countFollowers()}
 </button>
 <button className="btn btn-dark">
