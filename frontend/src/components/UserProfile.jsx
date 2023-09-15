@@ -340,7 +340,7 @@ console.log(user._id);
 <button className="btn btn-dark">
 Posts : {countPost()}
 </button>
-<button className="btn btn-dark mx-2">
+<button className="btn btn-dark mx-3">
 Followers : {countFollowers()}
 </button>
 <button className="btn btn-dark">
