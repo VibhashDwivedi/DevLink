@@ -18,7 +18,7 @@ const Search = () => {
   const[followed,setfollowed]=useState(false);
 
   const fetchUserData = async () => {
-    const res = await fetch("http://localhost:8000/user/getall");
+    const res = await fetch("https://devlink-project.onrender.com/user/getall");
 
     console.log(res.status);
 
@@ -34,7 +34,7 @@ const Search = () => {
 
   //fetch follow data
   const fetchFollowData = async () => {
-    const res = await fetch("http://localhost:8000/follow/getall", {
+    const res = await fetch("https://devlink-project.onrender.com/follow/getall", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const Search = () => {
       className="card-img-top"  src={pic}/>}
     else{
   return <img alt="profile"  height={320} 
-  className="card-img-top"  src={"http://localhost:8000/"+avt} />
+  className="card-img-top"  src={"https://devlink-project.onrender.com/"+avt} />
      }
    }
 
@@ -99,7 +99,7 @@ const Search = () => {
   }
 
     const followUser = async (x) => {
-      const res = await fetch("http://localhost:8000/follow/add", 
+      const res = await fetch("https://devlink-project.onrender.com/follow/add", 
         {method:'POST',
         body:JSON.stringify(
           {
@@ -125,7 +125,7 @@ const Search = () => {
     }
 
     const unfollow = async (x) => {
-      const res = await fetch("http://localhost:8000/follow/delete/"+ x, {
+      const res = await fetch("https://devlink-project.onrender.com/follow/delete/"+ x, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

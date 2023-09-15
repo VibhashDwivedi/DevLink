@@ -22,7 +22,7 @@ const [Likes, setLikes] = useState([]);
   const[myfollowers,setmyfollowers]=useState([]);
  
   const fetchFollowData = async () => {
-    const res = await fetch("http://localhost:8000/follow/getall", {
+    const res = await fetch("https://devlink-project.onrender.com/follow/getall", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ const [Likes, setLikes] = useState([]);
   }, []);
 
   const fetchUserData1 = async () =>{
-    const res = await fetch('http://localhost:8000/post/getall');
+    const res = await fetch('https://devlink-project.onrender.com/post/getall');
 
     console.log(res.status);
 
@@ -56,7 +56,7 @@ useEffect(() => {
 }, []);
 
 const fetchUserLikes = async () => {
-  const res = await fetch("http://localhost:8000/likes/getall") 
+  const res = await fetch("https://devlink-project.onrender.com/likes/getall") 
     console.log(res.status);
 
     if(res.status ===200){
@@ -121,7 +121,7 @@ const deletepost = async  (id) =>{
   //pass alert before deleting
   const c =  window.confirm('Are you sure you want to delete this post? ');
   if(c===true ){
-  const res = await  fetch('http://localhost:8000/post/delete/'+id, {method:'DELETE'});
+  const res = await  fetch('https://devlink-project.onrender.com/'+id, {method:'DELETE'});
   if(res.status === 200){
       fetchUserData1();
       toast.success('Post deleted successfully')
@@ -203,7 +203,7 @@ const deleteuser = async  (id) =>{
   //pass alert before deleting
   const c =  window.confirm('Are you sure you want to delete your account? ');
   if(c===true ){
-  const res = await  fetch('http://localhost:8000/user/delete/'+id, {method:'DELETE'});
+  const res = await  fetch('https://devlink-project.onrender.com/'+id, {method:'DELETE'});
   if(res.status === 200){
       fetchUserData1();
       Swal.fire({
@@ -278,7 +278,7 @@ const displayprofile = () => {
     return <i  className="fa-solid fa-user fa-2xl " style={{color:'#e8e8e8'}}></i>
   }
   else{
-return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
    }
  }
 const displayprofile2 = () => {
@@ -286,7 +286,7 @@ const displayprofile2 = () => {
     return <i  className="fa-solid fa-user fa-xl mx-2 " style={{color:'#8c8c8c'}}></i>
   }
   else{
-return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
    }
  }
 

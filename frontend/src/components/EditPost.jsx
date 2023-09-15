@@ -22,7 +22,7 @@ const EditPost = () => {
 
 
     const fetchUserData = async () => {
-        const res = await fetch("http://localhost:8000/post/getbyid/"+id);
+        const res = await fetch("https://devlink-project.onrender.com/post/getbyid/"+id);
         console.log(res.status);
 
         const data = await res.json();
@@ -58,7 +58,7 @@ const EditPost = () => {
         
          console.log(values);
           //sending request to backend
-        const res = await fetch("http://localhost:8000/post/update/"+id,
+        const res = await fetch("https://devlink-project.onrender.com/post/update/"+id,
         {method:'PUT',
          body:JSON.stringify(values),
          headers:{
@@ -92,7 +92,7 @@ const EditPost = () => {
         return <i  className="fa-solid fa-user fa-2xl " style={{color:'#e8e8e8'}}></i>
       }
       else{
-    return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+    return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
        }
      }
    

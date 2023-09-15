@@ -18,7 +18,7 @@ const EditUser = () => {
 
     const [selImage, setselImage] = useState(currentUser.avatar)
     const fetchUserData = async () => {
-        const res = await fetch("http://localhost:8000/user/getbyid/"+currentUser._id);
+        const res = await fetch("https://devlink-project.onrender.com/user/getbyid/"+currentUser._id);
         console.log(res.status);
 
         const data = await res.json();
@@ -54,7 +54,7 @@ const EditUser = () => {
    
     //check if email is present
     const checkAvailabilityEmail = async (email) => {
-      const res = await fetch("http://localhost:8000/user/checkemail/"+email,
+      const res = await fetch("https://devlink-project.onrender.com/user/checkemail/"+email,
       {method:'GET',
       headers:{
         'Content-Type': 'application/json'
@@ -72,7 +72,7 @@ const EditUser = () => {
 
     //check if username is present
     const checkAvailabilityUsername = async (username) => {
-      const res = await fetch("http://localhost:8000/user/checkusername/"+username,
+      const res = await fetch("https://devlink-project.onrender.com/user/checkusername/"+username,
       {method:'GET',
       headers:{
         'Content-Type': 'application/json'
@@ -101,7 +101,7 @@ const EditUser = () => {
         values.avatar= selImage;
          console.log(values);
           //sending request to backend
-        const res = await fetch("http://localhost:8000/user/update/"+currentUser._id,
+        const res = await fetch("https://devlink-project.onrender.com/user/update/"+currentUser._id,
         {method:'PUT',
          body:JSON.stringify(values),
          headers:{
@@ -148,7 +148,7 @@ const EditUser = () => {
         setselImage(file.name);
         const fd = new FormData();
         fd.append('myfile', file);
-        const res =await fetch ('http://localhost:8000/util/uploadfile',{
+        const res =await fetch ('https://devlink-project.onrender.com/util/uploadfile',{
           method:'PUT',
           body :fd
         });

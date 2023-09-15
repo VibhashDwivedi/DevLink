@@ -23,7 +23,7 @@ const Loggedin = () => {
 
 
   const fetchFollowData = async () => {
-    const res = await fetch("http://localhost:8000/follow/getall", {
+    const res = await fetch("https://devlink-project.onrender.com/follow/getall", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const Loggedin = () => {
   
 
   const fetchUserLikes = async () =>{
-    const res = await fetch('http://localhost:8000/likes/getall');
+    const res = await fetch('https://devlink-project.onrender.com/likes/getall');
 
     console.log(res.status);
 
@@ -65,7 +65,7 @@ const {LoggedIn, logout} = useUserContext();
 const fetchUserData = async () =>{
 
 
-  const res = await fetch('http://localhost:8000/post/getall');
+  const res = await fetch('https://devlink-project.onrender.com/post/getall');
 
   console.log(res.status);
 
@@ -107,7 +107,7 @@ const like = (x) => {
 }
 
   const likepost = async (x) => {
-    const res = await fetch("http://localhost:8000/likes/add", 
+    const res = await fetch("https://devlink-project.onrender.com/likes/add", 
       {method:'POST',
       body:JSON.stringify(
         {
@@ -134,7 +134,7 @@ const like = (x) => {
   }
 
   const unlikepost = async (x) => {
-    const res = await fetch("http://localhost:8000/likes/delete/"+ currentUser.username+"/"+x, {
+    const res = await fetch("https://devlink-project.onrender.com/likes/delete/"+ currentUser.username+"/"+x, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ const displayprofile = (avt) => {
     return <i  className="fa-solid fa-user fa-2xl mx-1 mt-2" style={{color:'#e8e8e8'}}></i>
   }
   else{
-return <img width={35} height={35} className=' rounded-circle' src={"http://localhost:8000/"+avt} alt="" />
+return <img width={35} height={35} className=' rounded-circle' src={"https://devlink-project.onrender.com/"+avt} alt="" />
    }
  }
 

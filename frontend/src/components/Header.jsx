@@ -21,7 +21,7 @@ const Header = () => {
     return <i  className="fa-solid fa-user fa-2xl " style={{color:'#e8e8e8'}}></i>
   }
   else{
-return <img width={40} height={40} className='mx-2 rounded-circle' src={"http://localhost:8000/"+currentUser.avatar} alt="" />
+return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
    }
  }
 
