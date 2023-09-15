@@ -37,7 +37,7 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
           </h3>
           <div className="flex-row my-3 my-md-0 ms-auto">
             <Link to="/feed"
-              className="text-white mr-2 header-search-icon mx-2"
+              className="text-white mr-2 header-search-icon mx-3"
               title="Search"
               data-toggle="tooltip"
               data-placement="bottom"
@@ -56,7 +56,7 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
             <Link to='/myprofile' className="mr-2">
             {displayprofile()}
              </Link>
-            <Link className="btn btn-sm btn-success mr-2 mx-2" to="/createpost">
+            <Link className="btn btn-sm btn-success mr-2 mx-3" to="/createpost">
               Create Post
             </Link>
             <Link to="/home">
