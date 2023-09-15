@@ -116,7 +116,7 @@ const{setLoggedIn} = useUserContext();
 
 
     }else if(res.status === 401){
-      Swal.fire('Invalid Credentials','Invalid Email or Password.','warning')
+      Swal.fire('Invalid Credentials','Invalid Username or Password.','warning')
     }
     else{
       Swal.fire({
