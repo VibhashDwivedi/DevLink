@@ -16,7 +16,7 @@ const req = require('express/lib/request');
 
 
 app.use(cors({
-    origin: ['http://localhost:3000']
+    origin: ['https://dev-link-project.vercel.app']
 }));
 app.use(express.json());
 

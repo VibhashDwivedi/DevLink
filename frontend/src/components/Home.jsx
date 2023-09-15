@@ -45,7 +45,7 @@ const{setLoggedIn} = useUserContext();
    
     //check if email is present
     const checkAvailabilityEmail = async (email) => {
-      const res = await fetch("http://localhost:8000/user/checkemail/"+email,
+      const res = await fetch("https://devlink-project.onrender.com/user/checkemail/"+email,
       {method:'GET',
       headers:{
         'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ const{setLoggedIn} = useUserContext();
 
     //check if username is present
     const checkAvailabilityUsername = async (username) => {
-      const res = await fetch("http://localhost:8000/user/checkusername/"+username,
+      const res = await fetch("https://devlink-project.onrender.com/user/checkusername/"+username,
       {method:'GET',
       headers:{
         'Content-Type': 'application/json'
@@ -91,7 +91,7 @@ const{setLoggedIn} = useUserContext();
       console.log(values);
       
       //submit values to backend
-      const res = await fetch("http://localhost:8000/user/authenticate",
+      const res = await fetch("https://devlink-project.onrender.com/user/authenticate",
       {method:'POST',
        body:JSON.stringify(values),
        headers:{
@@ -146,7 +146,7 @@ const{setLoggedIn} = useUserContext();
           values.avatar= selImage;
           console.log(values);
            //sending request to backend
-         const res = await fetch("http://localhost:8000/user/add",
+         const res = await fetch("https://devlink-project.onrender.com/user/add",
          {method:'POST',
           body:JSON.stringify(values),
           headers:{
@@ -189,7 +189,7 @@ const{setLoggedIn} = useUserContext();
           setselImage(file.name);
           const fd = new FormData();
           fd.append('myfile', file);
-          const res =await fetch ('http://localhost:8000/util/uploadfile',{
+          const res =await fetch ('https://devlink-project.onrender.com/util/uploadfile',{
             method:'POST',
             body :fd
           });
