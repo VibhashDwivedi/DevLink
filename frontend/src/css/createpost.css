@@ -19,7 +19,7 @@
     font-weight: 500;
     border: none;
     
-    background: linear-gradient(90deg, #e6ba5d 0%, #4bcacc 100%);
+    background: white;
     
 }
 
@@ -33,7 +33,7 @@ textarea.tall-textarea{
     color: #292929;
     border: none;
     
-    background: linear-gradient(90deg, #ddbe7b 0%, #22C1C3 100%);
+    background: white;
     border-radius: 5px 40px 5px;
 }
 
