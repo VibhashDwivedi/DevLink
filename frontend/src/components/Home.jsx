@@ -399,7 +399,7 @@ function(){
          <div className="d-flex justify-content-center">
          <button
             type="submit"
-            className="py-2 mt-4  btn btn-lg btn-info   me-4"
+            className="py-2 mt-4  btn btn-lg btn-info "
           >
             Sign up for DevLink
           </button>
