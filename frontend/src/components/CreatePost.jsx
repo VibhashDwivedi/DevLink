@@ -72,6 +72,17 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
    }
  }
 // disable button after click
+const [clicked, setclicked] = useState(false)
+const publish = () => {
+  if(clicked){
+    return false
+  }
+  else{
+    setclicked(true)
+    return true
+  }
+}
+
 
   
 
@@ -138,7 +149,7 @@ const {LoggedIn, logout} = useUserContext();
                 <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
-            <button type='submit' className="btn btn-info mt-2" >Publish Post</button>
+            <button type='submit' className="btn btn-info mt-2" onClick={publish()} >Publish Post</button>
             {/* make button clickable only once */}
 
 
