@@ -55,6 +55,7 @@ onSubmit: async (values) => {
   
  console.log(res.status);
  if(res.status === 200){
+  document.getElementById('publish').disabled='true'
   toast.success('Post Created Successfully😊')
   navigate('/myprofile')
 }
