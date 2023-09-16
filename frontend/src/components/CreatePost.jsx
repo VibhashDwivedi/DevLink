@@ -71,6 +71,9 @@ const displayprofile = () => {
 return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
    }
  }
+// disable button after click
+
+  
 
 const {LoggedIn, logout} = useUserContext();
  if(!LoggedIn)
@@ -135,7 +138,14 @@ const {LoggedIn, logout} = useUserContext();
                 <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
-            <button type='submit' className="btn btn-info mt-2">Publish Post</button>
+            <button type='submit' className="btn btn-info mt-2" onClick={this.disabled = 'true'}>Publish Post</button>
+            {/* make button clickable only once */}
+
+
+
+
+
+
         </form>
     </div>
   </div>
