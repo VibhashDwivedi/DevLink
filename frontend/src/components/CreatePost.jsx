@@ -151,8 +151,11 @@ const handleClick = event => {
                 <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
+            
             <button  id='publish'  onclick={handleClick} type='submit' className="btn btn-info mt-2"  >Publish Post</button>
             {/* make button clickable only once */}
+
+
 
 
 
