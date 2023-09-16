@@ -237,7 +237,7 @@ console.log(user._id);
                         </div>
                         
                          <div className=' text-black mx-2 pb-2 fw-light  '>{posts.content}</div>
-                         <div className=' text-black mx-2 pb-2 fw-light  '>{like(posts._id)}</div>
+                         <div className=' text-black  pb-2 fw-light  '>{like(posts._id)}</div>
                
                
                           
