@@ -246,7 +246,7 @@ const displayPost = ()=>{
             📅{posts.date}   ⌚{posts.time}  </div>
           </div>
           
-           <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
+           <div className=' text-black mx-2 pb-2 fw-light  '>{posts.content}</div>
            {/* <form onSubmit={likeform.handleSubmit}> */}
             {/* <button type='submit' className='btn btn-ouline-secondary w-15' 
            onChange={likeform.handleChange}
