@@ -334,7 +334,7 @@ console.log(user._id);
               </div>
            
 
-  <p className=' text-muted ' style={{marginTop:'-18px' , marginLeft:'63px'}}>{user.profile}</p>
+  <p className=' text-muted ' style={{marginTop:'-18px' , marginLeft:'43px'}}>{user.profile}</p>
   
   <div className="profile-nav nav nav-tabs pt-2 mb-4">
 <button className="btn btn-dark">
