@@ -121,7 +121,7 @@ const deletepost = async  (id) =>{
   //pass alert before deleting
   const c =  window.confirm('Are you sure you want to delete this post? ');
   if(c===true ){
-  const res = await  fetch('https://devlink-project.onrender.com/'+id, {method:'DELETE'});
+  const res = await  fetch('https://devlink-project.onrender.com/post/delete/'+id, {method:'DELETE'});
   if(res.status === 200){
       fetchUserData1();
       toast.success('Post deleted successfully')
@@ -203,7 +203,7 @@ const deleteuser = async  (id) =>{
   //pass alert before deleting
   const c =  window.confirm('Are you sure you want to delete your account? ');
   if(c===true ){
-  const res = await  fetch('https://devlink-project.onrender.com/'+id, {method:'DELETE'});
+  const res = await  fetch('https://devlink-project.onrender.com/user/delete/'+id, {method:'DELETE'});
   if(res.status === 200){
       fetchUserData1();
       Swal.fire({
