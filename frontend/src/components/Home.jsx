@@ -320,7 +320,6 @@ function(){
               value={signupForm.values.profile}
             />
             <datalist id="profile-register">
-              <option >Pick a Profile</option>
               <option value="Android Developer">Android Developer</option>
               <option value="Web Developer">Web Developer</option>
               <option value="Blockchain Developer">Blockchain Developer</option>
