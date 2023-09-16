@@ -176,7 +176,7 @@ const displayPost = () => {
                 📅{posts.date}   ⌚{posts.time}  </div> 
               </div>
               
-               <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
+               <div className=' text-black mx-2 pb-2 fw-light  '>{posts.content}</div>
                <div className=' text-black mx-2 pb-2 fw-light  '><i className="fa-solid fa-heart " style={{color:'red'}}></i> {countLikes(posts._id)}</div>
                 
                <div className=" p-4 py-2 ms-auto" style={{marginTop:'-40px'}}>

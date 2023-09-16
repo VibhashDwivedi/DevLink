@@ -236,8 +236,8 @@ console.log(user._id);
                           📅{posts.date}   ⌚{posts.time}  </div> 
                         </div>
                         
-                         <div className=' text-black mx-3 pb-2 fw-light  '>{posts.content}</div>
-                         <div className=' text-black mx-3 pb-2 fw-light  '>{like(posts._id)}</div>
+                         <div className=' text-black mx-2 pb-2 fw-light  '>{posts.content}</div>
+                         <div className=' text-black mx-2 pb-2 fw-light  '>{like(posts._id)}</div>
                
                
                           
