@@ -17,6 +17,9 @@ const CreatePost = () => {
     JSON.parse(sessionStorage.getItem('user'))
   );
 
+  // disable button after click
+const [disable, setDisable] = useState(false)
+
   const postSchema = Yup.object().shape({
     title: Yup.string()
     .required('Required'),
@@ -71,18 +74,8 @@ const displayprofile = () => {
 return <img width={40} height={40} className='mx-2 rounded-circle' src={"https://devlink-project.onrender.com/"+currentUser.avatar} alt="" />
    }
  }
-// disable button after click
-const [clicked, setclicked] = useState(false)
-const publish = () => {
-  if(clicked){
-    
-    document.getElementById('publish_post').disabled = true;
-  }
-  else{
-    setclicked(true)
-    
-  }
-}
+
+
 
 
   
@@ -150,7 +143,7 @@ const {LoggedIn, logout} = useUserContext();
                 <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
-            <button id='publish_post' disabled='false' type='submit' className="btn btn-info mt-2" onClick={disabled='true'} >Publish Post</button>
+            <button id='publish_post' type='submit' className="btn btn-info mt-2" disabled={disable} onClick={() => setDisable(true)} >Publish Post</button>
             {/* make button clickable only once */}
 
 
