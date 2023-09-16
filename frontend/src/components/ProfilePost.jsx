@@ -314,8 +314,8 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
           </h3>
           <div className="flex-row my-3 my-md-0 ms-auto">
           <Link to="/feed"
-              className="text-white mr-2 header-search-icon mx-4"
-              title="Search"
+              className="text-white mr-2 header-search-icon mx-3"
+              title="Home"
               data-toggle="tooltip"
               data-placement="bottom"
             >
@@ -331,10 +331,10 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
               <i className="fas fa-search " />
             </Link>
            
-            <Link to='/myprofile' className="mr-2">
+            <Link to='/myprofile' className="mr-2" title='Profile'>
            {displayprofile()}
             </Link>
-            <Link className="btn btn-sm btn-success mr-2 mx-4" to="/createpost">
+            <Link className="btn btn-sm btn-success mr-2 mx-3" to="/createpost">
               Create Post
             </Link>
             <Link to='/home'>
