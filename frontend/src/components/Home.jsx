@@ -309,23 +309,24 @@ function(){
             <p  className='error-label'>{signupForm.touched.profile? signupForm.errors.profile :''}</p>
            <div className="d-flex">
            <i className="fa-solid fa-user-tie fa-2x me-3"></i>
-           <select
+           <input
               name="profile"
-              id="profile-register"
+              list="profile-register"
               className="form-control text-muted"
               type="text"
               placeholder="Pick a profile"
               autoComplete="off"
               onChange={signupForm.handleChange}
               value={signupForm.values.profile}
-            >
+            />
+            <datalist id="profile-register">
               <option >Pick a Profile</option>
               <option value="Android Developer">Android Developer</option>
               <option value="Web Developer">Web Developer</option>
               <option value="Blockchain Developer">Blockchain Developer</option>
               <option value="ML Engineer">ML Engineer</option>
               <option value="Coding Instructor">Coding Instructor</option>
-            </select>
+           </datalist>
            </div>
            
             
