@@ -55,7 +55,6 @@ onSubmit: async (values) => {
   
  console.log(res.status);
  if(res.status === 200){
-  document.getElementById('publish').disabled='true'
   toast.success('Post Created Successfully😊')
   navigate('/myprofile')
 }
@@ -86,7 +85,9 @@ const {LoggedIn, logout} = useUserContext();
  if(!LoggedIn)
  return<Home/>
  
-
+const publish = () => {
+  document.getElementById('publish').disabled='true'
+}
 
   return (
        <div className='create-post-body vh-100'>
@@ -145,7 +146,7 @@ const {LoggedIn, logout} = useUserContext();
                 <textarea placeholder='Content goes here...' name="content" id="post-body" className="form-control tall-textarea body-content" type="text" autoComplete="off" onChange={postForm.handleChange} value={postForm.values.content}></textarea>
             </div>
 
-            <button  id='publish' disabled={false} type='submit' className="btn btn-info mt-2"  >Publish Post</button>
+            <button  id='publish' disabled={false} onclick={publish()} type='submit' className="btn btn-info mt-2"  >Publish Post</button>
             {/* make button clickable only once */}
 
 
