@@ -338,7 +338,7 @@ return <img width={40} height={40} className='mx-2 rounded-circle' src={"https:/
               Create Post
             </Link>
             <Link to='/home'>
-              <button className="btn btn-sm btn-secondary" onClick={logout}>SIGN OUT</button>
+              <button className="btn btn-sm btn-danger" onClick={logout}>SIGN OUT</button>
             </Link>
           </div>
         </div>
