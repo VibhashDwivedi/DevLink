@@ -12,7 +12,7 @@
 8. `Create Post`: User can create post and share their views
 9. `Update Post`: User can update their post, edit or delete it
 
-[Live Demo](https://dev-link-project.vercel.app/)
+[Live Demo](https://devlink-vibhashdwivedi.vercel.app/)
 
 ## Demo Video
  
