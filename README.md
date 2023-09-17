@@ -1,5 +1,5 @@
 # DevLink - A Platform for developers to Link
-A social media web app built using node.js, express.js and mongoDB for backend and react for frontend
+**A social media web app built using node.js, express.js and mongoDB for backend and react for frontend**
 
 ## Features
 1. `Signup and Login`: User need to create account in order to use web app. No two users can have same username or email. After signup, user needs to login.
