@@ -13,6 +13,8 @@ const Home = () => {
 
 const{setLoggedIn} = useUserContext();
   const navigate = useNavigate();
+ 
+
   const [selImage, setselImage] = useState('');
 
  const userNameRegex = /^[a-zA-Z0-9_-]*$/;
@@ -82,8 +84,8 @@ const{setLoggedIn} = useUserContext();
 
     const loginForm = useFormik({
         initialValues:{
-            username: '',
-          password: ''
+            username: 'Guest_User',
+          password: 'guestpassword'
     },
     onSubmit : async (values) => {
 
@@ -196,6 +198,7 @@ const{setLoggedIn} = useUserContext();
         
           console.log(res.status);
         }
+
 
   return (
     <div className='body'>
