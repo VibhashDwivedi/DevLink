@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 
 const app = express();
 const port = 8000;
+const url = "https://devlink-project.onrender.com";
 
 const userRouter = require('./routers/userRouter')
 const postRouter = require('./routers/postRouter')
@@ -25,6 +27,20 @@ app.use('/post',postRouter);
 app.use('/util', utilRouter);
 app.use('/likes',likesRouter);
 app.use('/follow',followRouter);
+
+const interval = 30000;
+
+function reloadWebsite() {
+  axios.get(url)
+    .then(response => {
+      console.log(`Reloaded at ${new Date().toISOString()}: Status Code ${response.status}`);
+    })
+    .catch(error => {
+      console.error(`Error reloading at ${new Date().toISOString()}:`, error.message);
+    });
+}
+
+setInterval(reloadWebsite, interval);
 
 
 
