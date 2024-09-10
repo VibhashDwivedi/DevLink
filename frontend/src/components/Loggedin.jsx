@@ -46,8 +46,6 @@ const Loggedin = () => {
   const fetchUserLikes = async () =>{
     const res = await fetch('https://devlink-project.onrender.com/likes/getall');
 
-    console.log(res.status);
-
     if(res.status ===200){
         const data = await res.json();
         setLikes(data);
